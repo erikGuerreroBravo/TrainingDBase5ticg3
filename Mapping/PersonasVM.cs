@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TrainingDBase5ticg3.ViewModels;
 
 namespace TrainingDBase5ticg3.Mapping
 {
@@ -17,7 +18,7 @@ namespace TrainingDBase5ticg3.Mapping
 
         public DireccionVM DireccionVM { get; set; }
 
-
+        public TelefonoVM TelefonoVM { get; set; }
 
     }
 }

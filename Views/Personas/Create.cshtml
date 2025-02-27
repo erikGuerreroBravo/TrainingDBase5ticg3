@@ -64,10 +64,10 @@
                             <div class="col-md-12">
                                 @Html.DropDownList("Profesiones", null,
                                 new
-                                     {
-                                         @class = "form-control input-sm",
-                                id = "IdProfesiones"
-                                     })
+                                {
+                                    @class = "form-control input-sm",
+                                    id = "Profesiones"
+                                })
                             </div>
                         </div>
                     </div>
@@ -149,9 +149,10 @@
 
 <script>
     $(document).ready(function () {
-        $('#IdProfesiones').change(function () {
-            let selectedText = $("#IdProfesiones option:selected").text();
-            let selectedValue = $("#IdProfesiones").val();
+
+        $('#Profesiones').change(function () {
+            let selectedText = $("#Profesiones option:selected").text();
+            let selectedValue = $("#Profesiones").val();
 
             if (selectedValue) {
                 if ($(`#tablaProfesiones tbody tr[data-id='${selectedValue}']`).length === 0) {

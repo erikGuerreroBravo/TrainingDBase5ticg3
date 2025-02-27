@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -14,7 +15,10 @@ namespace TrainingDBase5ticg3.Mapping
         public WebProfile()
         {
             CreateMap<profesiones, ProfesionesVM>().ReverseMap(); 
-            CreateMap<PersonasVM,personas>().ReverseMap();
+            CreateMap<PersonasVM,personas>()
+                .ReverseMap()
+                .ForMember(dest=> dest.DireccionVM, origen=> origen.MapFrom(c=> c.direcciones))
+                .ForMember(dest=> dest.)
 
             CreateMap<TelefonoVM,telefonos>().ReverseMap();
             CreateMap<DireccionVM,direcciones>().ReverseMap();  

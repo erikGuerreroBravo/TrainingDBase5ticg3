@@ -69,15 +69,16 @@ namespace TrainingDBase5ticg3.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nombre,ApellidoPaterno,ApellidoMaterno,Edad,TelefonoVM,DireccionVM")]PersonasVM personasVM,int IdProfesiones)
+        public ActionResult Create([Bind(Include = "Nombre,ApellidoPaterno,ApellidoMaterno,Edad,TelefonoVM,DireccionVM,Profesiones")]PersonasVM personasVM,int Profesiones)
         
         {
             if (ModelState.IsValid)
             {
                 List<ProfesionesPersonaVM> profesionesPersonas = new List<ProfesionesPersonaVM>();
                 profesionesPersonas.Add(new ProfesionesPersonaVM() {
-                    IdProfesiones=IdProfesiones,
-                    Id_Personas=personasVM.Id
+                    IdProfesiones=Profesiones,
+                    PersonasVM = personasVM,
+                   
                 });
                 personasVM.ProfesionesPersonaVM = profesionesPersonas;
 
