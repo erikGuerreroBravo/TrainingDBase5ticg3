@@ -14,12 +14,12 @@ namespace TrainingDBase5ticg3.Mapping
     {
         public WebProfile()
         {
-            CreateMap<profesiones, ProfesionesVM>().ReverseMap(); 
-            CreateMap<PersonasVM,personas>()
+            CreateMap<profesiones, TrainingDBase5ticg3.ViewModels.ProfesionesVM>().ReverseMap();
+            CreateMap<TrainingDBase5ticg3.ViewModels.PersonasVM, personas>()
                 .ReverseMap()
-                .ForMember(dest=> dest.DireccionVM, origen=> origen.MapFrom(c=> c.direcciones))
-                .ForMember(dest=> dest.)
-
+                .ForMember(dest => dest.DireccionVM, origen => origen.MapFrom(c => c.direcciones))
+                .ForMember(dest => dest.TelefonoVM, origen => origen.MapFrom(c => c.telefonos))
+                .ForMember(dest => dest.ProfesionesPersonaVM, origen => origen.MapFrom(c => c.profesionesPersonas));
             CreateMap<TelefonoVM,telefonos>().ReverseMap();
             CreateMap<DireccionVM,direcciones>().ReverseMap();  
         }

@@ -83,7 +83,13 @@ namespace TrainingDBase5ticg3.Controllers
                 personasVM.ProfesionesPersonaVM = profesionesPersonas;
 
                 personas persona = new personas();
-                Mapper.Map<PersonasVM,personas>(personasVM);
+                direcciones direcciones = new direcciones();
+                telefonos telefonos= new telefonos();
+                profesionesPersonas profesionesPersona = new profesionesPersonas();
+                persona.direcciones = direcciones;
+                persona.telefonos = telefonos;
+                persona.profesionesPersonas.Add(profesionesPersona);
+                persona=Mapper.Map<personas>(personasVM);
                 services.Crear(persona);
                 return RedirectToAction("Create");
             }
