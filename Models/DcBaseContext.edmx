@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TestDbMensajeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="direcciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Calle" Type="varchar" MaxLength="80" />
+          <Property Name="NumInterior" Type="varchar" MaxLength="10" />
+          <Property Name="NumExterior" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="personas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="80" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Edad" Type="int" Nullable="false" />
+          <Property Name="IdDireccion" Type="int" />
+          <Property Name="IdTelefono" Type="int" />
+        </EntityType>
+        <EntityType Name="profesiones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strValor" Type="varchar" MaxLength="130" />
+          <Property Name="strDescripcion" Type="varchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="profesionesPersonas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Personas" Type="int" />
+          <Property Name="idProfesiones" Type="int" />
+          <Property Name="fechaRegistro" Type="date" />
+        </EntityType>
+        <EntityType Name="telefonos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroCelular" Type="varchar" MaxLength="12" />
+          <Property Name="NumeroCasa" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <Association Name="FK_personas_direcciones">
+          <End Role="direcciones" Type="Self.direcciones" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="personas" Type="Self.personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direcciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="personas">
+              <PropertyRef Name="IdDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personas_telefonos">
+          <End Role="telefonos" Type="Self.telefonos" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="personas" Type="Self.personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="telefonos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="personas">
+              <PropertyRef Name="IdTelefono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_profesionesPersonas_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="profesionesPersonas" Type="Self.profesionesPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="profesionesPersonas">
+              <PropertyRef Name="id_Personas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_profesionesPersonas_profesiones">
+          <End Role="profesiones" Type="Self.profesiones" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="profesionesPersonas" Type="Self.profesionesPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesiones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="profesionesPersonas">
+              <PropertyRef Name="idProfesiones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestDbMensajeriaModelStoreContainer">
+          <EntitySet Name="direcciones" EntityType="Self.direcciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="profesiones" EntityType="Self.profesiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="profesionesPersonas" EntityType="Self.profesionesPersonas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="telefonos" EntityType="Self.telefonos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_personas_direcciones" Association="Self.FK_personas_direcciones">
+            <End Role="direcciones" EntitySet="direcciones" />
+            <End Role="personas" EntitySet="personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personas_telefonos" Association="Self.FK_personas_telefonos">
+            <End Role="telefonos" EntitySet="telefonos" />
+            <End Role="personas" EntitySet="personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_profesionesPersonas_personas" Association="Self.FK_profesionesPersonas_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="profesionesPersonas" EntitySet="profesionesPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_profesionesPersonas_profesiones" Association="Self.FK_profesionesPersonas_profesiones">
+            <End Role="profesiones" EntitySet="profesiones" />
+            <End Role="profesionesPersonas" EntitySet="profesionesPersonas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestDbMensajeriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="direcciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Calle" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="NumInterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NumExterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="personas" Relationship="Self.FK_personas_direcciones" FromRole="direcciones" ToRole="personas" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="personas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Edad" Type="Int32" Nullable="false" />
+          <Property Name="IdDireccion" Type="Int32" />
+          <Property Name="IdTelefono" Type="Int32" />
+          <NavigationProperty Name="direcciones" Relationship="Self.FK_personas_direcciones" FromRole="personas" ToRole="direcciones" />
+          <NavigationProperty Name="telefonos" Relationship="Self.FK_personas_telefonos" FromRole="personas" ToRole="telefonos" />
+          <NavigationProperty Name="profesionesPersonas" Relationship="Self.FK_profesionesPersonas_personas" FromRole="personas" ToRole="profesionesPersonas" />
+        </EntityType>
+        <EntityType Name="profesiones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strValor" Type="String" MaxLength="130" FixedLength="false" Unicode="false" />
+          <Property Name="strDescripcion" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="profesionesPersonas" Relationship="Self.FK_profesionesPersonas_profesiones" FromRole="profesiones" ToRole="profesionesPersonas" />
+        </EntityType>
+        <EntityType Name="profesionesPersonas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Personas" Type="Int32" />
+          <Property Name="idProfesiones" Type="Int32" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="personas" Relationship="Self.FK_profesionesPersonas_personas" FromRole="profesionesPersonas" ToRole="personas" />
+          <NavigationProperty Name="profesiones" Relationship="Self.FK_profesionesPersonas_profesiones" FromRole="profesionesPersonas" ToRole="profesiones" />
+        </EntityType>
+        <EntityType Name="telefonos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroCelular" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroCasa" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="personas" Relationship="Self.FK_personas_telefonos" FromRole="telefonos" ToRole="personas" />
+        </EntityType>
+        <Association Name="FK_personas_direcciones">
+          <End Role="direcciones" Type="Self.direcciones" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="personas" Type="Self.personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direcciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="personas">
+              <PropertyRef Name="IdDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personas_telefonos">
+          <End Role="telefonos" Type="Self.telefonos" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="personas" Type="Self.personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="telefonos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="personas">
+              <PropertyRef Name="IdTelefono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_profesionesPersonas_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="profesionesPersonas" Type="Self.profesionesPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="profesionesPersonas">
+              <PropertyRef Name="id_Personas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_profesionesPersonas_profesiones">
+          <End Role="profesiones" Type="Self.profesiones" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="profesionesPersonas" Type="Self.profesionesPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesiones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="profesionesPersonas">
+              <PropertyRef Name="idProfesiones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestDbMensajeriaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="direcciones" EntityType="Self.direcciones" />
+          <EntitySet Name="Login" EntityType="Self.Login" />
+          <EntitySet Name="personas" EntityType="Self.personas" />
+          <EntitySet Name="profesiones" EntityType="Self.profesiones" />
+          <EntitySet Name="profesionesPersonas" EntityType="Self.profesionesPersonas" />
+          <EntitySet Name="telefonos" EntityType="Self.telefonos" />
+          <AssociationSet Name="FK_personas_direcciones" Association="Self.FK_personas_direcciones">
+            <End Role="direcciones" EntitySet="direcciones" />
+            <End Role="personas" EntitySet="personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personas_telefonos" Association="Self.FK_personas_telefonos">
+            <End Role="telefonos" EntitySet="telefonos" />
+            <End Role="personas" EntitySet="personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_profesionesPersonas_personas" Association="Self.FK_profesionesPersonas_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="profesionesPersonas" EntitySet="profesionesPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_profesionesPersonas_profesiones" Association="Self.FK_profesionesPersonas_profesiones">
+            <End Role="profesiones" EntitySet="profesiones" />
+            <End Role="profesionesPersonas" EntitySet="profesionesPersonas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestDbMensajeriaModelStoreContainer" CdmEntityContainer="TestDbMensajeriaEntities">
+          <EntitySetMapping Name="direcciones">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.direcciones">
+              <MappingFragment StoreEntitySet="direcciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="NumInterior" ColumnName="NumInterior" />
+                <ScalarProperty Name="NumExterior" ColumnName="NumExterior" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Login">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personas">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.personas">
+              <MappingFragment StoreEntitySet="personas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="IdTelefono" ColumnName="IdTelefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profesiones">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.profesiones">
+              <MappingFragment StoreEntitySet="profesiones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="strValor" ColumnName="strValor" />
+                <ScalarProperty Name="strDescripcion" ColumnName="strDescripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profesionesPersonas">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.profesionesPersonas">
+              <MappingFragment StoreEntitySet="profesionesPersonas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="id_Personas" ColumnName="id_Personas" />
+                <ScalarProperty Name="idProfesiones" ColumnName="idProfesiones" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="telefonos">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.telefonos">
+              <MappingFragment StoreEntitySet="telefonos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NumeroCelular" ColumnName="NumeroCelular" />
+                <ScalarProperty Name="NumeroCasa" ColumnName="NumeroCasa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
