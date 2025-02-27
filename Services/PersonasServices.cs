@@ -34,6 +34,11 @@ namespace TrainingDBase5ticg3.Services
             return this.db.personas
                 .Where(p=> p.Nombre.StartsWith(name)).ToList(); 
         }
+        /// <summary>
+        /// insercion de la entidad persona
+        /// </summary>
+        /// <param name="personas"></param>
+        /// <returns></returns>
         public bool Crear(personas personas)
         {
             bool respuesta = false;
