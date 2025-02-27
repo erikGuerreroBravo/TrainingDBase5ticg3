@@ -69,7 +69,7 @@ namespace TrainingDBase5ticg3.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nombre,ApellidoPaterno,ApellidoMaterno,Edad,TelefonoVM,DireccionVM,Profesiones")]PersonasVM personasVM,int Profesiones)
+        public ActionResult Create([Bind(Include = "Nombre,ApellidoPaterno,ApellidoMaterno,Edad,TelefonoVM,DireccionVM,Profesiones")]TrainingDBase5ticg3.ViewModels.PersonasVM personasVM,int Profesiones)
         
         {
             if (ModelState.IsValid)
@@ -89,6 +89,7 @@ namespace TrainingDBase5ticg3.Controllers
                 persona.direcciones = direcciones;
                 persona.telefonos = telefonos;
                 persona.profesionesPersonas.Add(profesionesPersona);
+
                 persona=Mapper.Map<personas>(personasVM);
                 services.Crear(persona);
                 return RedirectToAction("Create");

@@ -1,10 +1,5 @@
 ﻿
 using AutoMapper;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using TrainingDBase5ticg3.Models;
 using TrainingDBase5ticg3.ViewModels;
 
@@ -14,14 +9,15 @@ namespace TrainingDBase5ticg3.Mapping
     {
         public WebProfile()
         {
-            CreateMap<profesiones, TrainingDBase5ticg3.ViewModels.ProfesionesVM>().ReverseMap();
-            CreateMap<TrainingDBase5ticg3.ViewModels.PersonasVM, personas>()
-                .ReverseMap()
-                .ForMember(dest => dest.DireccionVM, origen => origen.MapFrom(c => c.direcciones))
-                .ForMember(dest => dest.TelefonoVM, origen => origen.MapFrom(c => c.telefonos))
-                .ForMember(dest => dest.ProfesionesPersonaVM, origen => origen.MapFrom(c => c.profesionesPersonas));
-            CreateMap<TelefonoVM,telefonos>().ReverseMap();
-            CreateMap<DireccionVM,direcciones>().ReverseMap();  
+            CreateMap<profesiones, TrainingDBase5ticg3.ViewModels.ProfesionesVM>().ReverseMap(); 
+            CreateMap<TrainingDBase5ticg3.ViewModels.PersonasVM,TrainingDBase5ticg3.Models.personas>()
+                .ForMember(dest=> dest.direcciones, origen=> origen.MapFrom(c=> c.DireccionVM))
+                .ForMember(dest => dest.telefonos, origen => origen.MapFrom(c => c.TelefonoVM))
+                .ForMember(dest => dest.profesionesPersonas, origen => origen.MapFrom(c => c.ProfesionesPersonaVM)).ReverseMap();
+
+            CreateMap<TrainingDBase5ticg3.ViewModels.TelefonoVM,telefonos>().ReverseMap();
+            CreateMap<TrainingDBase5ticg3.ViewModels.DireccionVM,direcciones>().ReverseMap();
+            CreateMap<TrainingDBase5ticg3.ViewModels.ProfesionesPersonaVM, profesionesPersonas>().ReverseMap();
         }
 
         public static void Run()
