@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TestDbMensajeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TestDbMensajeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="direcciones">
           <Key>
             <PropertyRef Name="Id" />
@@ -139,21 +139,10 @@
             <End Role="profesionesPersonas" EntitySet="profesionesPersonas" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TestDbMensajeriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="direcciones">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Calle" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="NumInterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="NumExterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="personas" Relationship="Self.FK_personas_direcciones" FromRole="direcciones" ToRole="personas" />
-        </EntityType>
         <EntityType Name="Login">
           <Key>
             <PropertyRef Name="Id" />
@@ -173,9 +162,9 @@
           <Property Name="Edad" Type="Int32" Nullable="false" />
           <Property Name="IdDireccion" Type="Int32" />
           <Property Name="IdTelefono" Type="Int32" />
-          <NavigationProperty Name="direcciones" Relationship="Self.FK_personas_direcciones" FromRole="personas" ToRole="direcciones" />
           <NavigationProperty Name="telefonos" Relationship="Self.FK_personas_telefonos" FromRole="personas" ToRole="telefonos" />
           <NavigationProperty Name="profesionesPersonas" Relationship="Self.FK_profesionesPersonas_personas" FromRole="personas" ToRole="profesionesPersonas" />
+          <NavigationProperty Name="direcciones" Relationship="TestDbMensajeriaModel.FK_personas_direcciones" FromRole="personas" ToRole="direcciones" />
         </EntityType>
         <EntityType Name="profesiones">
           <Key>
@@ -206,20 +195,6 @@
           <Property Name="NumeroCasa" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="personas" Relationship="Self.FK_personas_telefonos" FromRole="telefonos" ToRole="personas" />
         </EntityType>
-        <Association Name="FK_personas_direcciones">
-          <End Role="direcciones" Type="Self.direcciones" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="personas" Type="Self.personas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="direcciones">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="personas">
-              <PropertyRef Name="IdDireccion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_personas_telefonos">
           <End Role="telefonos" Type="Self.telefonos" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -263,16 +238,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TestDbMensajeriaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="direcciones" EntityType="Self.direcciones" />
           <EntitySet Name="Login" EntityType="Self.Login" />
           <EntitySet Name="personas" EntityType="Self.personas" />
           <EntitySet Name="profesiones" EntityType="Self.profesiones" />
           <EntitySet Name="profesionesPersonas" EntityType="Self.profesionesPersonas" />
           <EntitySet Name="telefonos" EntityType="Self.telefonos" />
-          <AssociationSet Name="FK_personas_direcciones" Association="Self.FK_personas_direcciones">
-            <End Role="direcciones" EntitySet="direcciones" />
-            <End Role="personas" EntitySet="personas" />
-          </AssociationSet>
           <AssociationSet Name="FK_personas_telefonos" Association="Self.FK_personas_telefonos">
             <End Role="telefonos" EntitySet="telefonos" />
             <End Role="personas" EntitySet="personas" />
@@ -285,23 +255,42 @@
             <End Role="profesiones" EntitySet="profesiones" />
             <End Role="profesionesPersonas" EntitySet="profesionesPersonas" />
           </AssociationSet>
+          <EntitySet Name="direcciones" EntityType="TestDbMensajeriaModel.direcciones" />
+          <AssociationSet Name="FK_personas_direcciones" Association="TestDbMensajeriaModel.FK_personas_direcciones">
+            <End Role="direcciones" EntitySet="direcciones" />
+            <End Role="personas" EntitySet="personas" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="direcciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Calle" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="NumInterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NumExterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="personas" Relationship="TestDbMensajeriaModel.FK_personas_direcciones" FromRole="direcciones" ToRole="personas" />
+        </EntityType>
+        <Association Name="FK_personas_direcciones">
+          <End Type="TestDbMensajeriaModel.direcciones" Role="direcciones" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TestDbMensajeriaModel.personas" Role="personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direcciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="personas">
+              <PropertyRef Name="IdDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TestDbMensajeriaModelStoreContainer" CdmEntityContainer="TestDbMensajeriaEntities">
-          <EntitySetMapping Name="direcciones">
-            <EntityTypeMapping TypeName="TestDbMensajeriaModel.direcciones">
-              <MappingFragment StoreEntitySet="direcciones">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Calle" ColumnName="Calle" />
-                <ScalarProperty Name="NumInterior" ColumnName="NumInterior" />
-                <ScalarProperty Name="NumExterior" ColumnName="NumExterior" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Login">
             <EntityTypeMapping TypeName="TestDbMensajeriaModel.Login">
               <MappingFragment StoreEntitySet="Login">
@@ -349,6 +338,16 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NumeroCelular" ColumnName="NumeroCelular" />
                 <ScalarProperty Name="NumeroCasa" ColumnName="NumeroCasa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="direcciones">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.direcciones">
+              <MappingFragment StoreEntitySet="direcciones">
+                <ScalarProperty Name="NumExterior" ColumnName="NumExterior" />
+                <ScalarProperty Name="NumInterior" ColumnName="NumInterior" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

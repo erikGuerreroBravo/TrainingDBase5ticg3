@@ -25,11 +25,11 @@ namespace TrainingDBase5ticg3.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<direcciones> direcciones { get; set; }
         public virtual DbSet<Login> Login { get; set; }
         public virtual DbSet<personas> personas { get; set; }
         public virtual DbSet<profesiones> profesiones { get; set; }
         public virtual DbSet<profesionesPersonas> profesionesPersonas { get; set; }
         public virtual DbSet<telefonos> telefonos { get; set; }
+        public virtual DbSet<direcciones> direcciones { get; set; }
     }
 }

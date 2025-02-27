@@ -28,9 +28,9 @@ namespace TrainingDBase5ticg3.Models
         public Nullable<int> IdDireccion { get; set; }
         public Nullable<int> IdTelefono { get; set; }
     
-        public virtual direcciones direcciones { get; set; }
         public virtual telefonos telefonos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<profesionesPersonas> profesionesPersonas { get; set; }
+        public virtual direcciones direcciones { get; set; }
     }
 }
