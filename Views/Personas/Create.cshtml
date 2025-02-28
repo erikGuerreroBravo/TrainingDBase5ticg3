@@ -12,14 +12,22 @@
 <div class="container-fluid">
     <div class="row">
         <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            <div class="card-header">
+                <div class="card-title">
+                    <h4 class="roboto-thin-ExtraLight-200">
+                        <i class="fa-solid fa-user-tie"></i>
+                        Registro de Personas
+                    </h4>
+                </div>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group ">
-                            <label>Nombre:</label>
+                            <label class="roboto-thin-100 title-morado">Nombre:</label>
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100" } })
                                 @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -27,18 +35,18 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <label>Apellido Paterno:</label>
+                            <label class="roboto-thin-100 title-morado">Apellido Paterno:</label>
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.ApellidoPaterno, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.EditorFor(model => model.ApellidoPaterno, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100" } })
                                 @Html.ValidationMessageFor(model => model.ApellidoPaterno, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <label>Apellido Materno:</label>
+                            <label class="roboto-thin-100 title-morado">Apellido Materno:</label>
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.ApellidoMaterno, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.EditorFor(model => model.ApellidoMaterno, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100" } })
                                 @Html.ValidationMessageFor(model => model.ApellidoMaterno, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -47,104 +55,99 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <label>Edad</label>
+                            <label class="roboto-thin-100 title-morado">Edad</label>
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Edad, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Edad, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100" } })
                                 @Html.ValidationMessageFor(model => model.Edad, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                         <div class="form-group">
-                            
-                                <label class="control-label">
-                                    Profesiones:
-                                </label>
-                            
+
+                            <label class="control-label roboto-thin-100 title-morado">
+                                Profesiones:
+                            </label>
+
                             <div class="col-md-12">
                                 @Html.DropDownList("Profesiones", null,
                                 new
                                 {
-                                    @class = "form-control input-sm",
+                                    @class = "form-select form-select-sm mb-3",
                                     id = "Profesiones"
                                 })
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="roboto-thin-100 title-morado">NumeroCelular:</label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.TelefonoVM.NumeroCelular,
+                               new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100" } })
+                                @Html.ValidationMessageFor(model => model.TelefonoVM.NumeroCelular, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="roboto-thin-100 title-morado">Calle:</label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.DireccionVM.Calle, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100" } })
+                                @Html.ValidationMessageFor(model => model.DireccionVM.Calle, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="roboto-thin-100 title-morado">NumInterior</label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.DireccionVM.NumInterior, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100" } })
+                                @Html.ValidationMessageFor(model => model.DireccionVM.NumInterior, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="roboto-thin-100 title-morado">NumExterior</label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.DireccionVM.NumExterior, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100" } })
+                                @Html.ValidationMessageFor(model => model.DireccionVM.NumExterior, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="tablaProfesionesContainer" class="col-md-12" style="display: none;">
+                            <h4 class="roboto-thin-100 title-morado">Profesiones Seleccionadas</h4>
+                            <table class="table table-bordered" id="tablaProfesiones">
+                                <thead>
+                                    <tr>
+                                        <th class="roboto-thin-ExtraLight-200">Profesión</th>
+                                        <th class="roboto-thin-ExtraLight-200">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-dark w-25 mt-3" />
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="form-horizontal">
-    <h4>PersonasVM</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-  
-      
-   
-    <div class="form-group">
-        @Html.LabelFor(model => model.TelefonoVM.NumeroCelular, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TelefonoVM.NumeroCelular,
-           new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TelefonoVM.NumeroCelular, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DireccionVM.Calle, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DireccionVM.Calle, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DireccionVM.Calle, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DireccionVM.NumInterior, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DireccionVM.NumInterior, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DireccionVM.NumInterior, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DireccionVM.NumExterior, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DireccionVM.NumExterior, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DireccionVM.NumExterior, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="tablaProfesionesContainer" class="col-md-12" style="display: none;">
-                <h4>Profesiones Seleccionadas</h4>
-                <table class="table table-bordered" id="tablaProfesiones">
-                    <thead>
-                        <tr>
-                            <th>Profesión</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar a la Lista", "Index")
 </div>
 
 <script>

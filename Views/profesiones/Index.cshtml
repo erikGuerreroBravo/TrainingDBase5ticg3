@@ -10,11 +10,14 @@
         <div class="card shadow p-3 mb-5 bg-body rounded">
             <div class="card-body">
                 <div class="card-title">
-                    <h5>Listado de Licenciaturas registradas</h5>
+                    <h5 class="roboto-thin-ExtraLight-200 title-morado">
+                        <i class="fas fa-user-graduate"></i>
+                        Licenciaturas registradas
+                    </h5>
                 </div>
                 <div class="card-text">
                     <p>
-                        @Html.ActionLink("Crear Nuevo", "Create",new { @class = "btn btn-dark btn-group-lg w-25"  })
+                        @Html.ActionLink("Crear Nuevo", "Create",null,new { @class = "btn btn-dark btn-group-sm w-25" })
                     </p>
                     <table class="table table-bordered table-sm table-striped">
                         <tr>
@@ -30,13 +33,13 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
+                                <td class="roboto-thin-100 text-dark">
                                     @Html.DisplayFor(modelItem => item.strValor)
                                 </td>
-                                <td>
+                                <td class="roboto-thin-100 text-dark">
                                     @Html.DisplayFor(modelItem => item.strDescripcion)
                                 </td>
-                                <td>
+                                <td class="roboto-thin-ExtraLight-200">
                                     @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
                                     @Html.ActionLink("Detalle", "Details", new { id = item.Id }) |
                                     @Html.ActionLink("Borrar", "Delete", new { id = item.Id })

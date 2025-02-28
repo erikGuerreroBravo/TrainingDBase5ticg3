@@ -82,7 +82,8 @@ namespace TrainingDBase5ticg3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Create([Bind(Include = "strValor,strDescripcion")] TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVM)
+        public JsonResult Create([Bind(Include="strValor,strDescripcion")] 
+        TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVM)
         {
             if (ModelState.IsValid)
             {
