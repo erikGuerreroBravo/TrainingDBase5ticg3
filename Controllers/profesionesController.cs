@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -63,7 +64,7 @@ namespace TrainingDBase5ticg3.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "strValor,strDescripcion")]TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVM)
+        public ActionResult Crear([Bind(Include = "strValor,strDescripcion")]TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVM)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +82,7 @@ namespace TrainingDBase5ticg3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Crear([Bind(Include = "strValor,strDescripcion")] TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVM)
+        public JsonResult Create([Bind(Include = "strValor,strDescripcion")] TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVM)
         {
             if (ModelState.IsValid)
             {
@@ -177,5 +178,24 @@ namespace TrainingDBase5ticg3.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        #region Paginacion
+
+
+        [HttpGet]
+        public ActionResult Paginacion(int? page, int pageSize = 5)
+        {
+            int pageNumber = (page ?? 1); // Página actual, por defecto la primera
+            var resultado = services.GetAll()
+                .OrderBy(p => p.strDescripcion) // Ordenamos por descripción
+                .ToPagedList(pageNumber, pageSize); // Aplicamos la paginación
+
+            return View(resultado);
+        }
+        #endregion
+
+
+
     }
 }
