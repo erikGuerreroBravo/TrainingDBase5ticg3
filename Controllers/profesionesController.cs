@@ -113,7 +113,7 @@ namespace TrainingDBase5ticg3.Controllers
             }
             
             profesiones profesiones = services.GetById(id);
-            List<ProfesionesVM> profesionesVMs = new List<ProfesionesVM>();
+            List<TrainingDBase5ticg3.ViewModels.ProfesionesVM> profesionesVMs = new List<TrainingDBase5ticg3.ViewModels.ProfesionesVM>();
             Mapper.Map(profesiones,profesionesVMs);
 
             if (profesiones == null)
@@ -128,7 +128,7 @@ namespace TrainingDBase5ticg3.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,strValor,strDescripcion")]ProfesionesVM profesionesVM)
+        public ActionResult Edit([Bind(Include = "Id,strValor,strDescripcion")]TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVM)
         {
             if (ModelState.IsValid)
             {
@@ -149,7 +149,7 @@ namespace TrainingDBase5ticg3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             profesiones profesiones = services.GetById(id);
-            ProfesionesVM profesionesVMs = new ProfesionesVM();
+            TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVMs = new TrainingDBase5ticg3.ViewModels.ProfesionesVM();
             Mapper.Map(profesiones, profesionesVMs);
 
             if (profesiones == null)
