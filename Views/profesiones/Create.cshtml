@@ -5,39 +5,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>profesiones</h4>
-        <hr />
+
+    <div class="container-fluid">
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.strValor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.strValor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.strValor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.strDescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.strDescripcion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.strDescripcion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <div class="row">
+            <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h4>Profesiones</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                            <label class="text-black">Nombre de la Profesión:</label>
+                            @Html.EditorFor(model => model.strValor, new { htmlAttributes = new { @class = "form-control form-control-sm", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.strValor, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                            <label class="text-black">Descripción</label>
+                            @Html.EditorFor(model => model.strDescripcion, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                            @Html.ValidationMessageFor(model => model.strDescripcion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-3 d-flex justify-content-start">
+                            <input type="submit" value="Crear" class="btn btn-dark btn-group-lg w-25" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 }
 
 <div>
@@ -46,4 +50,45 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            // Interceptar el envío del formulario
+            $('form').submit(function (e) {
+                e.preventDefault(); // Evitar el envío tradicional del formulario
+
+                // Validar campos obligatorios
+                if ($('#strValor').val().trim() === '') {
+                    alert('El campo "Nombre de la Profesión" es obligatorio.');
+                    return false;
+                }
+
+                // Serializar los datos del formulario
+                var formData = $(this).serialize();
+
+                // Enviar los datos mediante AJAX
+                $.ajax({
+                    url: '@Url.Action("Create", "Profesiones")', // URL del método Create
+                    type: 'POST',
+                    data: formData,
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Incluir el token anti-falsificación
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            // Redirigir a la acción Index después de una inserción exitosa
+                            window.location.href = '@Url.Action("Index", "Profesiones")';
+                        } else {
+                            // Mostrar mensajes de error si la inserción falla
+                            alert(response.message || 'Error al crear la profesión.');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Manejar errores de la solicitud AJAX
+                        alert('Ocurrió un error al procesar la solicitud. Por favor, inténtelo de nuevo.');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 }
