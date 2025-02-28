@@ -36,9 +36,47 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <!-- Paginación -->
+                            <div id="pagination">
+                                @Html.PagedListPager(Model, page => Url.Action("Paginacion", new { page = page }), new PagedListRenderOptions
+                                {
+                                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                                    DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                                    MaximumPageNumbersToDisplay = 5,
+                                    ContainerDivClasses = new[] { "pagination-container" },
+                                    UlElementClasses = new[] { "pagination" },
+                                    LiElementClasses = new[] { "page-item" } // "PageClasses" no existe
+                                })
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<link href="~/Content/paginacion.css" rel="stylesheet" />
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function () {
+            $("#pagination a").on("click", function (e) {
+                e.preventDefault();
+                var url = $(this).attr("href");
+                cargarDatos(url);
+            });
+        });
+
+        function cargarDatos(url) {
+            $.get(url, function (data) {
+                var html = $(data).find("#tablaProfesiones").html();
+                $("#tablaProfesiones").html(html);
+                var pagination = $(data).find("#pagination").html();
+                $("#pagination").html(pagination);
+            });
+        }</script>
+    }

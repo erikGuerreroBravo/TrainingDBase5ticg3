@@ -6,52 +6,53 @@
 }
 
 @*@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()*@
+    {
+        @Html.AntiForgeryToken()*@
 
-    <div class="container-fluid">
+<div class="container-fluid">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="row">
-            <div class="card shadow-lg p-3 mb-5 bg-body rounded">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h4>Profesiones</h4>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card-header">
+                <div class="card-title">
+                    <h4>Profesiones</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <form id="profesionesForm">
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                            <label class="text-black">Nombre de la Profesión:</label>
+                            @Html.EditorFor(model => model.strValor, new { htmlAttributes = new { @class = "form-control form-control-sm", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.strValor, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                            <label class="text-black">Descripción</label>
+                            @Html.EditorFor(model => model.strDescripcion, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                            @Html.ValidationMessageFor(model => model.strDescripcion, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <form id="profesionesForm">
-                        @Html.AntiForgeryToken()
-                        <div class="row">
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-                                <label class="text-black">Nombre de la Profesión:</label>
-                                @Html.EditorFor(model => model.strValor, new { htmlAttributes = new { @class = "form-control form-control-sm", required = "required" } })
-                                @Html.ValidationMessageFor(model => model.strValor, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-                                <label class="text-black">Descripción</label>
-                                @Html.EditorFor(model => model.strDescripcion, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                @Html.ValidationMessageFor(model => model.strDescripcion, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-3 d-flex justify-content-start">
+                            <input type="submit" value="Crear" class="btn btn-dark btn-group-lg w-25" />
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-3 d-flex justify-content-start">
-                                <input type="submit" value="Crear" class="btn btn-dark btn-group-lg w-25" />
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                </form>
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 @*}*@
 
 <div>
     @Html.ActionLink("Regresar al Listado", "Index")
 </div>
-
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.min.js"></script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
@@ -59,13 +60,11 @@
             // Interceptar el envío del formulario
             $('form').submit(function (e) {
                 e.preventDefault(); // Evitar el envío tradicional del formulario
-
                 // Validar campos obligatorios
                 if ($('#strValor').val().trim() === '') {
-                    alert('El campo "Nombre de la Profesión" es obligatorio.');
+                    toastr.error('El campo "Nombre de la Profesión" es obligatorio.', 'Error');
                     return false;
                 }
-
                 // Serializar los datos del formulario
                 var formData = $(this).serialize();
 
@@ -79,16 +78,19 @@
                     },
                     success: function (response) {
                         if (response.success) {
+                            toastr.success('La profesión se ha creado correctamente.', 'Éxito');
                             // Redirigir a la acción Index después de una inserción exitosa
                             window.location.href = '@Url.Action("Index", "Profesiones")';
                         } else {
                             // Mostrar mensajes de error si la inserción falla
-                            alert(response.message || 'Error al crear la profesión.');
+                            //alert(response.message || 'Error al crear la profesión.');
+                            toastr.error('El campo "Nombre de la Profesión" es obligatorio.', 'Error');
                         }
                     },
                     error: function (xhr, status, error) {
+                        toastr.error('El campo "Nombre de la Profesión" es obligatorio.', 'Error');
                         // Manejar errores de la solicitud AJAX
-                        alert('Ocurrió un error al procesar la solicitud. Por favor, inténtelo de nuevo.');
+                        //alert('Ocurrió un error al procesar la solicitud. Por favor, inténtelo de nuevo.');
                         console.error(xhr.responseText);
                     }
                 });

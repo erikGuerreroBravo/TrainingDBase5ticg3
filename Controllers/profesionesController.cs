@@ -114,8 +114,8 @@ namespace TrainingDBase5ticg3.Controllers
             }
             
             profesiones profesiones = services.GetById(id);
-            List<TrainingDBase5ticg3.ViewModels.ProfesionesVM> profesionesVMs = new List<TrainingDBase5ticg3.ViewModels.ProfesionesVM>();
-            Mapper.Map(profesiones,profesionesVMs);
+            TrainingDBase5ticg3.ViewModels.ProfesionesVM profesionesVMs = new TrainingDBase5ticg3.ViewModels.ProfesionesVM();
+            profesionesVMs = Mapper.Map<TrainingDBase5ticg3.ViewModels.ProfesionesVM>(profesiones);
 
             if (profesiones == null)
             {
@@ -187,11 +187,13 @@ namespace TrainingDBase5ticg3.Controllers
         public ActionResult Paginacion(int? page, int pageSize = 5)
         {
             int pageNumber = (page ?? 1); // Página actual, por defecto la primera
-            var resultado = services.GetAll()
-                .OrderBy(p => p.strDescripcion) // Ordenamos por descripción
-                .ToPagedList(pageNumber, pageSize); // Aplicamos la paginación
+            List<profesiones> resultado = services.GetAll()
+                .OrderBy(p => p.strDescripcion).ToList(); // Ordenamos por descripción
+                 // Aplicamos la paginación
+            List<TrainingDBase5ticg3.ViewModels.ProfesionesVM> profesionesVM = new List<TrainingDBase5ticg3.ViewModels.ProfesionesVM>();
+            profesionesVM=Mapper.Map<List<TrainingDBase5ticg3.ViewModels.ProfesionesVM>>(resultado);
 
-            return View(resultado);
+            return View(profesionesVM.ToPagedList(pageNumber, pageSize));
         }
         #endregion
 
