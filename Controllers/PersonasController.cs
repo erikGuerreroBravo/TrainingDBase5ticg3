@@ -166,6 +166,12 @@ namespace TrainingDBase5ticg3.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Perfil()
+        {
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
