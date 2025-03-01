@@ -12,7 +12,7 @@
             <p class="mt-0 mb-0">Telefono: 7731954385</p>
             <p class="mt-0">Direccion: Av.Madero N#3, Colonia Centro Tepetitlan Hidalgo.</p>
             <hr />
-            <button class="btn btn-bd-morado" id="btnSkill">
+            <button class="btn btn-bd-morado" id="btnSkill" data-bs-toggle="modal" data-bs-target="#modalSkill">
                 <i class="fa-solid fa-thumbs-up"></i>
                 Agregar Skill
             </button>
@@ -27,17 +27,44 @@
            
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 justify-content-end">
-            <img src="~/Images/user_anonimo.webp" alt="Descripción de la imagen">
-
+            <img src="~/Images/usuario_anonimo_formal.jpg" alt="Descripción de la imagen" class="img-fluid img-thumbnail">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Asignar Roles</option>
+                <option value="1">Administrador</option>
+                <option value="2">Invitado</option>
+                <option value="3">Analista</option>
+            </select>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-2 d-flex">
             <div class="mb-3 justify-content-sm-start">
-                <label for="formFileSm" class="form-label">Agregar Foto</label>
+                <label for="formFileSm" class="form-label">
+                    <i class="fa-solid fa-camera"></i>
+                    Agregar Foto</label>
                 <input class="form-control form-control-sm" id="formFileSm" type="file">
             </div>
         </div>
     </div>
 
+    <div class="row">
+        <!-- Modal -->
+        <div class="modal fade" id="modalSkill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-modal">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Skill Técnico</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

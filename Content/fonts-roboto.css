@@ -4,6 +4,9 @@
 .title-size-max {
        font-size:large;
  }
+.header-modal {
+    background-color: #5a189a;
+   }
 .roboto-thin-100 {
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
