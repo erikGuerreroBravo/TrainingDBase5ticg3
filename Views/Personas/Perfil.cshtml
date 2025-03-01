@@ -28,7 +28,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 justify-content-end">
             <img src="~/Images/usuario_anonimo_formal.jpg" alt="Descripción de la imagen" class="img-fluid img-thumbnail">
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <select class="form-select form-select-sm border border-success roboto-thin-ExtraLight-200 mt-1" aria-label=".form-select-sm example">
                 <option selected>Asignar Roles</option>
                 <option value="1">Administrador</option>
                 <option value="2">Invitado</option>
@@ -51,15 +51,26 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header header-modal">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Skill Técnico</h1>
+                        <h1 class="modal-title fs-5 roboto-thin-ExtraLight-200 header-color-text" id="exampleModalLabel">Agregar Skill Técnico</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex">
+                                <p class="justify-content-start p-1">
+                                    <span class="roboto-thin-100">
+                                        <i class="fa-solid fa-headphones"></i>
+                                        Skill:
+                                    </span>
+
+                                </p>
+                                <input type="text" class="form-control form-control-sm roboto-thin-ExtraLight-200" placeholder="Nombre del skill" />
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-outline-success">Guardar</button>
                     </div>
                 </div>
             </div>

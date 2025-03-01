@@ -5,8 +5,11 @@
        font-size:large;
  }
 .header-modal {
-    background-color: #5a189a;
+    background-color: #5a189a !important;
    }
+.header-color-text {
+    color:white;
+}
 .roboto-thin-100 {
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
