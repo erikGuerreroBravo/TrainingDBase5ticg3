@@ -84,14 +84,12 @@
                             window.location.href = '@Url.Action("Index", "Profesiones")';
                         } else {
                             // Mostrar mensajes de error si la inserción falla
-                            //alert(response.message || 'Error al crear la profesión.');
                             toastr.error('El campo "Nombre de la Profesión" es obligatorio.', 'Error');
                         }
                     },
                     error: function (xhr, status, error) {
                         toastr.error('El campo "Nombre de la Profesión" es obligatorio.', 'Error');
                         // Manejar errores de la solicitud AJAX
-                        //alert('Ocurrió un error al procesar la solicitud. Por favor, inténtelo de nuevo.');
                         console.error(xhr.responseText);
                     }
                 });
