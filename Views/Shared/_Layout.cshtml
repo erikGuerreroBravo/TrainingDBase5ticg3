@@ -8,7 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/fonts-roboto.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
     <script src="https://kit.fontawesome.com/5549e90f49.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +27,7 @@
                     <li>@Html.ActionLink("Profesiones", "Index", "profesiones", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
                     <li>@Html.ActionLink("Personas", "Create", "Personas", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
+                    <li>@Html.ActionLink("Perfil", "Perfil", "Personas", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
                 </ul>
             </div>
         </div>

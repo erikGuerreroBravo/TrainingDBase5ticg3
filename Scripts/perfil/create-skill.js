@@ -1,9 +1,9 @@
-﻿/// <reference path="../jquery-3.7.1.min.js" />
+﻿$(document).ready(function(){
 
-<script>
+    $('#btnGuardarSkill').click(function () {
 
-    $(document).ready(function(){
-
-        alert("Ya estamos Cargando el script jquery")
+        var txtSkill = $('#txtSkill').val();
+        console.log(txtSkill);
+        $('#modalSkill').modal('hide');
     });
-</script>
+});
