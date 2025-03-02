@@ -149,7 +149,7 @@
 <div>
     @Html.ActionLink("Regresar a la Lista", "Index")
 </div>
-
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
 <script>
     $(document).ready(function () {
 
@@ -159,7 +159,7 @@
 
             if (selectedValue) {
                 if ($(`#tablaProfesiones tbody tr[data-id='${selectedValue}']`).length === 0) {
-                    let row = `<tr data-id="${selectedValue}"><td>${selectedText}</td>
+                    let row = `<tr data-id="${selectedValue}" class="roboto-thin-ExtraLight-200"><td>${selectedText}</td>
                                 <td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarFila(${selectedValue})">Eliminar</button></td></tr>`;
                     $('#tablaProfesiones tbody').append(row);
                     $('#tablaProfesionesContainer').show();
