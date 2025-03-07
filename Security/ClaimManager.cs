@@ -1,20 +1,19 @@
 ﻿using Microsoft.AspNet.Identity;
-using System;
+using Microsoft.Owin.Security;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
-using TrainingDBase5ticg3.ViewModels;
-using Microsoft.Owin.Security;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
+using TrainingDBase5ticg3.Infraestructura;
+using TrainingDBase5ticg3.ViewModels;
 
 
 namespace TrainingDBase5ticg3.Security
 {
-	public class ClaimManager
-	{
-		public static ClaimsIdentity CreateIdentity(AuthVM authVM, bool rememberMe)
+	public class ClaimManager: IClaimManager
+    {
+		public ClaimsIdentity CreateIdentity(AuthVM authVM, bool rememberMe)
 		{
 			var claims = new List<Claim> {
 
@@ -29,10 +28,10 @@ namespace TrainingDBase5ticg3.Security
 			return new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
 		}
 
-		public static ActionResult SignIn(AuthVM authVM, bool rememberMe , Controller ctx)
+		public ActionResult SignIn(AuthVM authVM, bool rememberMe , Controller ctx, string _returnurl)
 		{
 			ActionResult Result;
-			string returnUrl = "";
+			string returnUrl = _returnurl;
 
             var identity = CreateIdentity(authVM, rememberMe);
 			var authenticacionManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
@@ -47,7 +46,7 @@ namespace TrainingDBase5ticg3.Security
             return new RedirectResult(returnUrl);
         }
 
-		public static void SignOut() 
+		public void SignOut() 
 		{
 			var authenticacionManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
 			authenticacionManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
