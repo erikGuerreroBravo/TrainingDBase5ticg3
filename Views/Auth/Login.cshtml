@@ -4,22 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid">
-    <div class="row d-flex flex-row">
-        <div class="align-content-center">
-            <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-                <div class="card-body">
-                   <div  class="card-text d-flex flex-row justify-content-center">
-                       <label class="text-black roboto-thin-ExtraLight-200 p-1 m-1">Nombre de Usuario:</label>
-                       <input type="text" placeholder="Ingresa el Nombre de usuario" class="form-control form-control-sm p-1" />
-                   </div>
-                   <div class="card-text d-flex flex-row justify-content-center mt-3">
-                       <label class="text-black roboto-thin-ExtraLight-200 p-1 m-1">Password:</label>
-                       <input type="password" placeholder="Ingresa el Password" class="form-control form-control-sm p-1" />
-                   </div>
-                </div>
-            </div>
+@using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+{
+    @Html.AntiForgeryToken() 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 card shadow-lg p-3 mb-5 bg-body rounded"></div>
+                        
         </div>
     </div>
-</div>
+    <input type="text" name="usuario" placeholder="Usuario" required />
+    <input type="password" name="password" placeholder="Contraseña" required />
+    <button type="submit">Ingresar</button>
+}
 

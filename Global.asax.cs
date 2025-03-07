@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using TrainingDBase5ticg3.App_Start;
 using TrainingDBase5ticg3.Mapping;
 
 namespace TrainingDBase5ticg3
@@ -13,6 +14,8 @@ namespace TrainingDBase5ticg3
     {
         protected void Application_Start()
         {
+       
+            var owinStartup = typeof( TrainingDBase5ticg3.App_Start.Startup);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             ///configuramos el automapper para que se ejecute junto con la aplicacion

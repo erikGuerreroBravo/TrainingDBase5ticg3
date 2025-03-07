@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TrainingDBase5ticg3.Filters;
 using TrainingDBase5ticg3.Infraestructura;
 using TrainingDBase5ticg3.Security;
 using TrainingDBase5ticg3.ViewModels;
@@ -18,12 +19,18 @@ namespace TrainingDBase5ticg3.Controllers
         {
             claimManager = new ClaimManager();
         }
+
         // GET: Auth
-        public ActionResult Login()
+        [HttpGet]
+        [ExceptionFilterAttribute]
+        [AllowAnonymous]
+        public ActionResult Login(string returnurl="")
         {
+            ViewBag.ReturnUrl = returnurl;
             return View();
         }
 
+        [ExceptionFilterAttribute]
         public ActionResult Login(AuthVM authVM, string returnurl) {
 
             ActionResult result;
