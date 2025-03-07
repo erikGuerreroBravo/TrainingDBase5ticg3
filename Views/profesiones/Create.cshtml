@@ -28,23 +28,26 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                             <label class="text-black roboto-thin-ExtraLight-200">Nombre de la Profesión:</label>
-                            @Html.EditorFor(model => model.strValor, new { htmlAttributes = new { @class = "form-control form-control-sm", required = "required" } })
+                            @Html.EditorFor(model => model.strValor, new { htmlAttributes = 
+                           new { @class = "form-control form-control-sm", required = "required" } })
                             @Html.ValidationMessageFor(model => model.strValor, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                             <label class="text-black roboto-thin-ExtraLight-200">Descripción</label>
-                            @Html.EditorFor(model => model.strDescripcion, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                            @Html.EditorFor(model => model.strDescripcion, new { htmlAttributes = new 
+                       { @class = "form-control form-control-sm" } })
                             @Html.ValidationMessageFor(model => model.strDescripcion, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 mt-3 d-flex justify-content-start">
-                            <input type="submit" value="Crear" class="btn btn-dark btn-group-lg me-2 roboto-thin-ExtraLight-200 w-25" />
-                            @Html.ActionLink("Regresar al Listado", "Index", null, new { @class = "btn btn-secondary btn-group-lg w-25" })
+                            <input type="submit" value="Crear" 
+                                   class="btn btn-dark btn-group-lg me-2 roboto-thin-ExtraLight-200 w-25" />
+                            @Html.ActionLink("Regresar al Listado", "Index", null, new 
+                       { @class = "btn btn-secondary btn-group-lg w-25" })
                         </div>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -68,7 +71,6 @@
                 }
                 // Serializar los datos del formulario
                 var formData = $(this).serialize();
-
                 // Enviar los datos mediante AJAX
                 $.ajax({
                     url: '@Url.Action("Create", "Profesiones")', // URL del método Create
@@ -89,8 +91,6 @@
                     },
                     error: function (xhr, status, error) {
                         toastr.error('El campo "Nombre de la Profesión" es obligatorio.', 'Error');
-                        // Manejar errores de la solicitud AJAX
-                        console.error(xhr.responseText);
                     }
                 });
             });

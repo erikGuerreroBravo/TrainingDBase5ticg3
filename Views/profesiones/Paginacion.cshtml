@@ -18,7 +18,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Descripción</th>
-                                        <th>Acciones</th>
+                                        <th>Acciones</th>y
                                     </tr>
                                 </thead>
                                 <tbody id="tablaProfesiones">
@@ -28,8 +28,10 @@
                                             <td>@item.Id</td>
                                             <td>@item.strDescripcion</td>
                                             <td>
-                                                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning btn-sm">Editar</a>
-                                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-sm">Eliminar</a>
+                                                <a href="@Url.Action("Edit", new { id = item.Id })" 
+                                                   class="btn btn-warning btn-sm">Editar</a>
+                                                <a href="@Url.Action("Delete", new { id = item.Id })"
+                                                   class="btn btn-danger btn-sm">Eliminar</a>
                                             </td>
                                         </tr>
                                     }

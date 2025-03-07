@@ -191,8 +191,10 @@ namespace TrainingDBase5ticg3.Controllers
             List<profesiones> resultado = services.GetAll()
                 .OrderBy(p => p.strDescripcion).ToList(); // Ordenamos por descripción
                  // Aplicamos la paginación
-            List<TrainingDBase5ticg3.ViewModels.ProfesionesVM> profesionesVM = new List<TrainingDBase5ticg3.ViewModels.ProfesionesVM>();
-            profesionesVM=Mapper.Map<List<TrainingDBase5ticg3.ViewModels.ProfesionesVM>>(resultado);
+            List<TrainingDBase5ticg3.ViewModels.ProfesionesVM> 
+                profesionesVM = new List<TrainingDBase5ticg3.ViewModels.ProfesionesVM>();
+            profesionesVM=Mapper.Map<List<TrainingDBase5ticg3.ViewModels.ProfesionesVM>>
+                (resultado);
 
             return View(profesionesVM.ToPagedList(pageNumber, pageSize));
         }
