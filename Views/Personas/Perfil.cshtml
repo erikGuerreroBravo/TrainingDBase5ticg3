@@ -10,9 +10,11 @@
                 Mtro.Erik Guerrero Bravo
             </label>
             <p class="mt-0 mb-0">Telefono: 7731954385</p>
-            <p class="mt-0">Direccion: Av.Madero N#3, Colonia Centro Tepetitlan Hidalgo.</p>
+            <p class="mt-0">Direccion: Av.Madero N#3,
+            Colonia Centro Tepetitlan Hidalgo.</p>
             <hr />
-            <button class="btn btn-bd-morado" id="btnSkill" data-bs-toggle="modal" data-bs-target="#modalSkill">
+            <button class="btn btn-bd-morado" id="btnSkill"
+                    data-bs-toggle="modal" data-bs-target="#modalSkill">
                 <i class="fa-solid fa-thumbs-up"></i>
                 Agregar Skill
             </button>
@@ -24,11 +26,14 @@
                 <i class="fa-solid fa-gear"></i>
                 Configuraciones
             </button>
-
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 justify-content-end">
-            <img src="~/Images/usuario_anonimo_formal.jpg" alt="Descripción de la imagen" class="img-fluid img-thumbnail">
-            <select class="form-select form-select-sm border border-success roboto-thin-ExtraLight-200 mt-1" aria-label=".form-select-sm example">
+            <img src="~/Images/usuario_anonimo_formal.jpg" 
+                 alt="Descripción de la imagen" class="img-fluid img-thumbnail">
+            <select 
+                    class="form-select form-select-sm border border-success
+                    roboto-thin-ExtraLight-200 mt-1" 
+                    aria-label=".form-select-sm example">
                 <option selected>Asignar Roles</option>
                 <option value="1">Administrador</option>
                 <option value="2">Invitado</option>
@@ -41,23 +46,25 @@
                     <i class="fa-solid fa-camera"></i>
                     Agregar Foto
                 </label>
-                <input class="form-control form-control-sm" id="formFileSm" type="file">
+                <input class="form-control form-control-sm" id="formFileSm" 
+                       type="file">
             </div>
         </div>
     </div>
     <div class="row pt-0 mt-0" id="cardRow">
-        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 card d-flex flex-row shadow p-3 mg-5 bg-body rounded" id="cardSkill">
-            
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5
+             card d-flex flex-row shadow p-3 mg-5 bg-body rounded" id="cardSkill">
             <div class="card-body" id="skillBody">
                 <div class="card-title">
-                    <span class="roboto-Black-900 title-morado">Skill Profesionales</span>
+                    <span class="roboto-Black-900 title-morado">
+                    Skill Profesionales</span>
                 </div>
                 <hr />
                 <span id="spanId"></span>
             </div>
-            
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 card d-flex flex-row shadow p-3 mg-5 bg-body rounded" id="carBio">
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 
+             card d-flex flex-row shadow p-3 mg-5 bg-body rounded" id="carBio">
             <div class="card-body">
                 <div class="card-title">
                     <span class="roboto-Black-900 title-morado">
@@ -65,14 +72,14 @@
                     </span>
                     <hr />
                 </div>
-                <textarea class="form-control" id="txtAreaBio" rows="5" placeholder="Escribe tu comentario aquí..."></textarea>
+                <textarea class="form-control" id="txtAreaBio" rows="5"
+                          placeholder="Escribe tu comentario aquí..."></textarea>
             </div>
-             
         </div>
     </div>
-    
     <div class="row pt-0 mt-1" id="cardCertificacionesRow">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 card d-flex flex-row shadow p-3 mg-5 bg-body rounded" id="carCertificaciones">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 card 
+             d-flex flex-row shadow p-3 mg-5 bg-body rounded" id="carCertificaciones">
             <div class="card-body">
                 <div class="card-title">
                     <span class="roboto-Black-900 title-morado">
@@ -81,32 +88,38 @@
                     <hr />
                 </div>
                 <form class="d-flex justify-content-between">
-                    
-                        <label for="exampleInputEmail1" class="form-label">Certificación:</label>
-                        <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
-                       
-                        <label for="exampleInputPassword1" class="form-label">Institución:</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1">
-                   
+                    <label for="exampleInputEmail1" class="form-label">
+                    Certificación:</label>
+                    <input type="text" class="form-control form-control-sm" 
+                           id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputPassword1" 
+                           class="form-label">Institución:</label>
+                    <input type="text" class="form-control"
+                           id="exampleInputPassword1">
                     <div class="mb-0 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Terminado</label>
+                        <input type="checkbox" class="form-check-input"
+                               id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">
+                        Terminado</label>
                     </div>
-                    <button type="submit" class="btn btn-outline-success w-25">Agregar</button>
+                    <button type="submit" class="btn btn-outline-success w-25">
+                    Agregar</button>
                 </form>
             </div>
         </div>
     </div>
-
-
     <div class="row">
         <!-- Modal -->
-        <div class="modal fade" id="modalSkill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalSkill"
+             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header header-modal">
-                        <h1 class="modal-title fs-5 roboto-thin-ExtraLight-200 header-color-text" id="exampleModalLabel">Agregar Skill Técnico</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title fs-5 roboto-thin-ExtraLight-200 
+                            header-color-text"
+                            id="exampleModalLabel">Agregar Skill Técnico</h1>
+                        <button type="button" class="btn-close"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
