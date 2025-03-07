@@ -1,4 +1,5 @@
-﻿
+﻿@model TrainingDBase5ticg3.ViewModels.AuthVM
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,15 +7,76 @@
 
 @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
 {
-    @Html.AntiForgeryToken() 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 card shadow-lg p-3 mb-5 bg-body rounded"></div>
-                        
+    @Html.AntiForgeryToken()
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+            <div class="card shadow-lg p-4 rounded">
+                <div class="card-body">
+                    <h3 class="text-center mb-3 roboto-Black-900 title-morado">Iniciar Sesión</h3>
+
+                    <form action="/Auth/Login" method="POST" id="frmForm">
+                        <!-- Usuario -->
+                        <div class="row mb-2">
+                            <div class="col-12">
+                                <label class="roboto-thin-ExtraLight-200 title-morado">Usuario:</label>
+                                @Html.TextBoxFor(model => model.NombreDeUsuario, new { @class = "form-control form-control-sm", placeholder = "Ingrese su usuario", required = "required" })
+
+                            </div>
+                        </div>
+
+                        <!-- Contraseña -->
+                        <div class="row mb-2">
+                            <div class="col-12">
+                                <label class="roboto-thin-ExtraLight-200 title-morado">Password:</label>
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-sm", placeholder = "Ingrese su contraseña", required = "required" })
+
+                            </div>
+                        </div>
+
+                        <!-- Botón de inicio de sesión -->
+                        <div class="row mt-3">
+                            <div class="col-12 d-grid">
+                                <button type="submit" class="btn roboto-Regular-400 btn-bd-morado btn-sm w-75">Ingresar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-    <input type="text" name="usuario" placeholder="Usuario" required />
-    <input type="password" name="password" placeholder="Contraseña" required />
-    <button type="submit">Ingresar</button>
-}
 
+}
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+            url: '@Url.Action("Login", "Auth")', // URL del método Create
+            type: 'POST',
+            data: formData,
+            headers: {
+            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Incluir el token anti-falsificación
+            },
+            success: function (response) {
+                if (response.success) {
+                toastr.success('La profesión se ha creado correctamente.', 'Éxito');
+                // Redirigir a la acción Index después de una inserción exitosa
+                window.location.href = '@Url.Action("Index", "Profesiones")';
+                }
+                else {
+                // Mostrar mensajes de error si la inserción falla
+                toastr.error('No se pudo cargar la información de forma correcta, revisa el usuario y contraseña.', 'Error');
+                }
+            },
+            error: function (xhr, status, error) {
+                toastr.error('Es necesario revisar usuario y contraseña .', 'Error');
+            }
+        });
+    });
+
+});
+    </script>
+
+}

@@ -36,6 +36,7 @@ namespace TrainingDBase5ticg3.Controllers
             ActionResult result;
             if (authVM != null)
             {
+                authVM.Id = 000001;
                 result = claimManager.SignIn(authVM, true, this, returnurl);
             }
             else 

@@ -273,6 +273,7 @@
     <Content Include="Models\DcBaseContext.edmx.diagram">
       <DependentUpon>DcBaseContext.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\auth\validate-auth.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
