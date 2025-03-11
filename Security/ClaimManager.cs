@@ -52,7 +52,23 @@ namespace TrainingDBase5ticg3.Security
 			authenticacionManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 	    }
 
+        public bool SignIn(AuthVM authVM, bool rememberMe, string _returnurl)
+        {
+            
+            string returnUrl = _returnurl;
+			var identity = CreateIdentity(authVM, rememberMe);
+            var authenticacionManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
+            authenticacionManager.SignIn(new AuthenticationProperties()
+            {
+                IsPersistent = rememberMe
+            }, identity);
+    //        if (string.IsNullOrWhiteSpace(returnUrl))
+    //        {
+    //            //returnUrl = ctx.Url.Action("Create", "Personas");
+				//return false;
+    //        }
+			return true;
+        }
 
-
-	}
+    }
 }

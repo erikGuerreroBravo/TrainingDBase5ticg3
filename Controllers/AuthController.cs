@@ -30,23 +30,31 @@ namespace TrainingDBase5ticg3.Controllers
             return View();
         }
 
-        [ExceptionFilterAttribute]
-        public ActionResult Login(AuthVM authVM, string returnurl) {
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Login(AuthVM authVM, string returnUrl)
+        {
+            if (authVM == null || !ModelState.IsValid)
+            {
+                return Json(new { success = false, message = "Datos inválidos." });
+            }
 
-            ActionResult result;
-            if (authVM != null)
+            authVM.Email = authVM.NombreDeUsuario;
+
+            if (claimManager.SignIn(authVM, true, returnUrl))
             {
-                authVM.Id = 000001;
-                authVM.Email = authVM.NombreDeUsuario;
-                
-                result = claimManager.SignIn(authVM, true, this, returnurl);
+                string redirectUrl = Url.Action("Index", "Home"); // Redirección por defecto
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    redirectUrl = returnUrl;
+                }
+
+                return Json(new { success = true, redirectUrl });
             }
-            else 
-            {
-                return View();
-            }
-            return result;
+
+            return Json(new { success = false, message = "Error de autenticación. Usuario o contraseña incorrectos." });
         }
+
 
 
     }

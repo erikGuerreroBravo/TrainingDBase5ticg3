@@ -32,6 +32,19 @@
                     <li>@Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
                     <li>@Html.ActionLink("Perfil", "Perfil", "Personas", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
                 </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="navbar-text ml-auto">
+                        <label class="text-white roboto-Light-300">Usuario: @User.Identity.Name</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="navbar-text ml-auto">
+                        <a href="@Url.Action("Login", "Auth")" class="btn btn-outline-light">Iniciar sesión</a>
+                    </div>
+                }
+
             </div>
         </div>
     </nav>

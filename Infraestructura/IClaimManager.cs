@@ -8,6 +8,7 @@ namespace TrainingDBase5ticg3.Infraestructura
     {
         ClaimsIdentity CreateIdentity(AuthVM authVM, bool rememberMe);
         ActionResult SignIn(AuthVM authVM, bool rememberMe, Controller ctx, string _returnurl);
+        bool SignIn(AuthVM authVM, bool rememberMe, string _returnurl);
         void SignOut();
     }
 }

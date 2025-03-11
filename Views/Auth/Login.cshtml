@@ -61,13 +61,11 @@
             },
             success: function (response) {
                 if (response.success) {
-                toastr.success('La profesión se ha creado correctamente.', 'Éxito');
-                // Redirigir a la acción Index después de una inserción exitosa
-                    //window.location.href = '@Url.Action("Create", "Personas")';
+                   toastr.success('La profesión se ha creado correctamente.', 'Éxito');
+                   window.location.href = '@Url.Action("Create", "Personas")';
                 }
                 else {
-                // Mostrar mensajes de error si la inserción falla
-                toastr.error('No se pudo cargar la información de forma correcta, revisa el usuario y contraseña.', 'Error');
+                   toastr.error('No se pudo cargar la informacion', 'Error');
                 }
             },
             error: function (xhr, status, error) {

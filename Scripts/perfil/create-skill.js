@@ -49,7 +49,7 @@ function LoadSkillOnly() {
 function ShowData(skills) {
     $("#skillBody").empty("");
     $("#spanId").empty("");
-    $("#skillBody").append('<div class="card-title"><span class="roboto-Black-900 title-morado">Skill Profesionales</span></div><hr/>');
+    $("#skillBody").append('<div class="card-title"><span class="roboto-Black-900 title-morado">Skill Profesionales</span ></div > <hr />');
     $.each(skills, function (index, skill) {
         $("#skillBody").append(`
             <span class="badge bg-success text-white me-2 mt-1 roboto-Light-300" id="spanId">
