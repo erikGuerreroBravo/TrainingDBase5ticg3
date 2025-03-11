@@ -62,11 +62,7 @@ namespace TrainingDBase5ticg3.Security
             {
                 IsPersistent = rememberMe
             }, identity);
-    //        if (string.IsNullOrWhiteSpace(returnUrl))
-    //        {
-    //            //returnUrl = ctx.Url.Action("Create", "Personas");
-				//return false;
-    //        }
+    
 			return true;
         }
 
