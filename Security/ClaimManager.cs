@@ -6,6 +6,8 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using TrainingDBase5ticg3.Infraestructura;
+using TrainingDBase5ticg3.Models;
+using TrainingDBase5ticg3.Services;
 using TrainingDBase5ticg3.ViewModels;
 
 
@@ -13,7 +15,13 @@ namespace TrainingDBase5ticg3.Security
 {
 	public class ClaimManager: IClaimManager
     {
-		public ClaimsIdentity CreateIdentity(AuthVM authVM, bool rememberMe)
+		private readonly IAuthServices authServices;
+        public ClaimManager()
+        {
+			authServices = new AuthServices();
+        }
+
+        public ClaimsIdentity CreateIdentity(AuthVM authVM, bool rememberMe)
 		{
 			var claims = new List<Claim> {
 
@@ -54,16 +62,41 @@ namespace TrainingDBase5ticg3.Security
 
         public bool SignIn(AuthVM authVM, bool rememberMe, string _returnurl)
         {
-            
-            string returnUrl = _returnurl;
-			var identity = CreateIdentity(authVM, rememberMe);
-            var authenticacionManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
-            authenticacionManager.SignIn(new AuthenticationProperties()
+			Usuarios usuario = authServices.Login(authVM.Email, authVM.Password);
+            if (usuario != null) 
             {
-                IsPersistent = rememberMe
-            }, identity);
-    
-			return true;
+                var userRol = usuario.UsuarioRol.Select(r => new UsuarioRolVM
+                {
+                    IdRol = r.IdRol.Value,
+                    IdUsuario = r.IdUsuario.Value,
+                    RolVM = new RolVM
+                    {
+                        Nombre = r.Roles.Nombre,
+                        Id = r.Roles.Id
+                    }
+                }).ToList();
+
+
+                if (userRol != null)
+                {
+                    authVM.Email = usuario.Email.Trim();
+                    authVM.Password = usuario.Password.Trim();
+                    authVM.UsuarioRolVMs = userRol;
+                    string returnUrl = _returnurl;
+                    var identity = CreateIdentity(authVM, rememberMe);
+                    var authenticacionManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
+                    authenticacionManager.SignIn(new AuthenticationProperties()
+                    {
+
+                        IsPersistent = rememberMe
+                    }, identity);
+
+                    return true;
+                }
+             }
+            
+			return false;
+            
         }
 
     }
