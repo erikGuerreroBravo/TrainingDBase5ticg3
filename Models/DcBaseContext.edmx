@@ -51,6 +51,13 @@
           <Property Name="idProfesiones" Type="int" />
           <Property Name="fechaRegistro" Type="date" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="telefonos">
           <Key>
             <PropertyRef Name="Id" />
@@ -58,6 +65,24 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NumeroCelular" Type="varchar" MaxLength="12" />
           <Property Name="NumeroCasa" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="UsuarioRol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="fechaRegistro" Type="date" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreDeUsuario" Type="varchar" MaxLength="150" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_personas_direcciones">
           <End Role="direcciones" Type="Self.direcciones" Multiplicity="0..1">
@@ -115,13 +140,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UsuarioRol_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="UsuarioRol" Type="Self.UsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsuarioRol">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioRol_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="UsuarioRol" Type="Self.UsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsuarioRol">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TestDbMensajeriaModelStoreContainer">
           <EntitySet Name="direcciones" EntityType="Self.direcciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profesiones" EntityType="Self.profesiones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profesionesPersonas" EntityType="Self.profesionesPersonas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="telefonos" EntityType="Self.telefonos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioRol" EntityType="Self.UsuarioRol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_personas_direcciones" Association="Self.FK_personas_direcciones">
             <End Role="direcciones" EntitySet="direcciones" />
             <End Role="personas" EntitySet="personas" />
@@ -137,6 +189,14 @@
           <AssociationSet Name="FK_profesionesPersonas_profesiones" Association="Self.FK_profesionesPersonas_profesiones">
             <End Role="profesiones" EntitySet="profesiones" />
             <End Role="profesionesPersonas" EntitySet="profesionesPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioRol_Roles" Association="Self.FK_UsuarioRol_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsuarioRol" EntitySet="UsuarioRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioRol_Usuarios" Association="Self.FK_UsuarioRol_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuarioRol" EntitySet="UsuarioRol" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -260,6 +320,17 @@
             <End Role="direcciones" EntitySet="direcciones" />
             <End Role="personas" EntitySet="personas" />
           </AssociationSet>
+          <EntitySet Name="Roles" EntityType="TestDbMensajeriaModel.Roles" />
+          <EntitySet Name="UsuarioRol" EntityType="TestDbMensajeriaModel.UsuarioRol" />
+          <EntitySet Name="Usuarios" EntityType="TestDbMensajeriaModel.Usuarios" />
+          <AssociationSet Name="FK_UsuarioRol_Roles" Association="TestDbMensajeriaModel.FK_UsuarioRol_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsuarioRol" EntitySet="UsuarioRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioRol_Usuarios" Association="TestDbMensajeriaModel.FK_UsuarioRol_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuarioRol" EntitySet="UsuarioRol" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="direcciones">
           <Key>
@@ -282,6 +353,59 @@
             </Principal>
             <Dependent Role="personas">
               <PropertyRef Name="IdDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsuarioRol" Relationship="TestDbMensajeriaModel.FK_UsuarioRol_Roles" FromRole="Roles" ToRole="UsuarioRol" />
+        </EntityType>
+        <EntityType Name="UsuarioRol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Roles" Relationship="TestDbMensajeriaModel.FK_UsuarioRol_Roles" FromRole="UsuarioRol" ToRole="Roles" />
+          <NavigationProperty Name="Usuarios" Relationship="TestDbMensajeriaModel.FK_UsuarioRol_Usuarios" FromRole="UsuarioRol" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreDeUsuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UsuarioRol" Relationship="TestDbMensajeriaModel.FK_UsuarioRol_Usuarios" FromRole="Usuarios" ToRole="UsuarioRol" />
+        </EntityType>
+        <Association Name="FK_UsuarioRol_Roles">
+          <End Type="TestDbMensajeriaModel.Roles" Role="Roles" Multiplicity="0..1" />
+          <End Type="TestDbMensajeriaModel.UsuarioRol" Role="UsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsuarioRol">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioRol_Usuarios">
+          <End Type="TestDbMensajeriaModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="TestDbMensajeriaModel.UsuarioRol" Role="UsuarioRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsuarioRol">
+              <PropertyRef Name="IdUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -347,6 +471,34 @@
                 <ScalarProperty Name="NumExterior" ColumnName="NumExterior" />
                 <ScalarProperty Name="NumInterior" ColumnName="NumInterior" />
                 <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioRol">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.UsuarioRol">
+              <MappingFragment StoreEntitySet="UsuarioRol">
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NombreDeUsuario" ColumnName="NombreDeUsuario" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

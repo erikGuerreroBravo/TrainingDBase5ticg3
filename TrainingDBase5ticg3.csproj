@@ -213,7 +213,16 @@
     <Compile Include="Models\profesionesPersonas.cs">
       <DependentUpon>DcBaseContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Roles.cs">
+      <DependentUpon>DcBaseContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\telefonos.cs">
+      <DependentUpon>DcBaseContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsuarioRol.cs">
+      <DependentUpon>DcBaseContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuarios.cs">
       <DependentUpon>DcBaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
