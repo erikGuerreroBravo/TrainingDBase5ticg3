@@ -59,7 +59,8 @@ namespace TrainingDBase5ticg3.Controllers
         [HttpGet]
         public ActionResult LogOut()
         {
-            return RedirectToAction("");
+            claimManager.SignOut();
+            return RedirectToAction("Index","Home");
         }
     }
 }
