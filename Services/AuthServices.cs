@@ -14,7 +14,8 @@ namespace TrainingDBase5ticg3.Services
 
         public Usuarios Login(string userName, string password) 
         {
-            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(userName) ||
+                string.IsNullOrWhiteSpace(password))
             {
                 return null;
             }
@@ -26,12 +27,9 @@ namespace TrainingDBase5ticg3.Services
             {
                 return null;
             }
-            usuario.UsuarioRol = db.UsuarioRol.Where(u => u.IdUsuario == usuario.Id).ToList();
+            usuario.UsuarioRol = db.UsuarioRol
+                .Where(u => u.IdUsuario == usuario.Id).ToList();
             return usuario;
-
         }
-
-       
-
     }
 }

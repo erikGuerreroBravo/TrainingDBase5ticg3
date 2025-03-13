@@ -32,7 +32,7 @@
                     <li>@Html.ActionLink("Profesiones", "Index", "profesiones", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
                     <li>@Html.ActionLink("Personas", "Create", "Personas", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrador"))
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Invitado"))
                     {
                         <li>@Html.ActionLink("Perfil", "Perfil", "Personas", new { area = "" }, new { @class = "nav-link roboto-Light-300" })</li>
                     }

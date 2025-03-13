@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using TrainingDBase5ticg3.Filters;
 using TrainingDBase5ticg3.Infraestructura;
 using TrainingDBase5ticg3.Models;
 using TrainingDBase5ticg3.Services;
@@ -69,6 +70,7 @@ namespace TrainingDBase5ticg3.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ExceptionFilterAttribute]
         public ActionResult Create([Bind(Include = "Nombre,ApellidoPaterno,ApellidoMaterno,Edad,TelefonoVM,DireccionVM,Profesiones")]TrainingDBase5ticg3.ViewModels.PersonasVM personasVM,int Profesiones)
         
         {

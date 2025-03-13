@@ -31,11 +31,12 @@ namespace TrainingDBase5ticg3.Security
 			};
 			if (authVM.UsuarioRolVMs != null && authVM.UsuarioRolVMs.Any())
 			{
-				claims.AddRange(authVM.UsuarioRolVMs.Select(r=> new Claim(ClaimTypes.Role, r.RolVM.Nombre)));
+				claims.AddRange(authVM.UsuarioRolVMs
+                    .Select(r=> new Claim(ClaimTypes.Role, r.RolVM.Nombre)));
 			}
-			return new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+			return new ClaimsIdentity(claims,
+                DefaultAuthenticationTypes.ApplicationCookie);
 		}
-
 		public ActionResult SignIn(AuthVM authVM, bool rememberMe , Controller ctx, string _returnurl)
 		{
 			ActionResult Result;
@@ -53,11 +54,12 @@ namespace TrainingDBase5ticg3.Security
             }
             return new RedirectResult(returnUrl);
         }
-
-		public void SignOut() 
+        public void SignOut() 
 		{
-			var authenticacionManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
-			authenticacionManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+			var authenticacionManager = System.Web.HttpContext
+                .Current.GetOwinContext().Authentication;
+			authenticacionManager.SignOut(DefaultAuthenticationTypes
+                .ApplicationCookie);
 	    }
 
         public bool SignIn(AuthVM authVM, bool rememberMe, string _returnurl)
@@ -75,8 +77,6 @@ namespace TrainingDBase5ticg3.Security
                         Id = r.Roles.Id
                     }
                 }).ToList();
-
-
                 if (userRol != null)
                 {
                     authVM.Email = usuario.Email.Trim();
@@ -84,7 +84,8 @@ namespace TrainingDBase5ticg3.Security
                     authVM.UsuarioRolVMs = userRol;
                     string returnUrl = _returnurl;
                     var identity = CreateIdentity(authVM, rememberMe);
-                    var authenticacionManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
+                    var authenticacionManager = System.Web.HttpContext
+                        .Current.GetOwinContext().Authentication;
                     authenticacionManager.SignIn(new AuthenticationProperties()
                     {
 
@@ -93,11 +94,8 @@ namespace TrainingDBase5ticg3.Security
 
                     return true;
                 }
-             }
-            
+             }            
 			return false;
-            
         }
-
     }
 }

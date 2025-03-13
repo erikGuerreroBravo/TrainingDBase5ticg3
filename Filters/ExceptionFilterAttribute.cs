@@ -14,13 +14,14 @@ namespace TrainingDBase5ticg3.Filters
             {
                 return;
             }
-
             // Captura la excepción
             Exception ex = filterContext.Exception;
-
             // Loguea la excepción en NLog
-            Logger.Error(ex, "Ocurrió una excepción en el controlador: " + filterContext.RouteData.Values["controller"] +
-                               " Acción: " + filterContext.RouteData.Values["action"]);
+            Logger.Error(ex,
+                "Ocurrió una excepción en el controlador: " +
+                filterContext.RouteData.Values["controller"] +
+                               " Acción: " + 
+                               filterContext.RouteData.Values["action"]);
 
             // Configurar la respuesta HTTP
             filterContext.Result = new ViewResult
