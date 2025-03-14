@@ -36,31 +36,51 @@ namespace TrainingDBase5ticg3.Controllers
         {
             if (authVM == null || !ModelState.IsValid)
             {
-                return Json(new { success = false, message = "Datos inválidos." });
+                return Json(new { success = false,
+                    message = "Datos inválidos." });
             }
-
             authVM.Email = authVM.NombreDeUsuario;
-
             if (claimManager.SignIn(authVM, true, returnUrl))
             {
                 string redirectUrl = Url.Action("Index", "Home"); // Redirección por defecto
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                if (!string.IsNullOrEmpty(returnUrl)
+                    && Url.IsLocalUrl(returnUrl))
                 {
                     redirectUrl = returnUrl;
                 }
-
                 return Json(new { success = true, redirectUrl });
             }
 
-            return Json(new { success = false, message = "Error de autenticación. Usuario o contraseña incorrectos." });
+            return Json(new { success = false, 
+      message = "Error de autenticación. Usuario o contraseña incorrectos." });
         }
-
 
         [HttpGet]
         public ActionResult LogOut()
         {
             claimManager.SignOut();
             return RedirectToAction("Index","Home");
+        }
+
+        [HttpGet]
+        [Authorize()]
+        public ActionResult ChangePassword() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize()]
+        public ActionResult ChangePassword(string OldPassword, string NewPassword)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (!OldPassword.Equals(NewPassword)) 
+                {
+                    ///Realizo operacion en Base de datos
+                }
+            }
+            return View();
         }
     }
 }
