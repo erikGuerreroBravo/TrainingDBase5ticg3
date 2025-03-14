@@ -4,10 +4,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using TrainingDBase5ticg3.Filters;
 using TrainingDBase5ticg3.Infraestructura;
 using TrainingDBase5ticg3.Security;
+using TrainingDBase5ticg3.Services;
 using TrainingDBase5ticg3.ViewModels;
 
 namespace TrainingDBase5ticg3.Controllers
@@ -15,9 +17,11 @@ namespace TrainingDBase5ticg3.Controllers
     public class AuthController : Controller
     {
         private IClaimManager claimManager;
+        private readonly IAuthServices authServices;
         public AuthController()
         {
             claimManager = new ClaimManager();
+            authServices = new AuthServices();
         }
 
         // GET: Auth
@@ -77,8 +81,15 @@ namespace TrainingDBase5ticg3.Controllers
             {
                 if (!OldPassword.Equals(NewPassword)) 
                 {
-                    ///Realizo operacion en Base de datos
+                    if (authServices.UpdatePassword(User.Identity.Name,
+                        OldPassword, NewPassword))
+                    {
+                        return RedirectToAction("Login");
+                    }
+                    //tenemos que agregar un error
+                     return View();
                 }
+
             }
             return View();
         }
