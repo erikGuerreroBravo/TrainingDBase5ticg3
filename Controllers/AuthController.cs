@@ -98,6 +98,9 @@ namespace TrainingDBase5ticg3.Controllers
         [HttpGet]
         public ActionResult Account()
         {
+            ViewBag.Roles = new
+               SelectList(profesionesServices.GetAllOrderByName(),
+               "Id", "strValor");
             return View();
         }
 

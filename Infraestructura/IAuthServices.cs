@@ -9,6 +9,7 @@ namespace TrainingDBase5ticg3.Infraestructura
 {
     public interface IAuthServices
     {
+        List<Roles> GetAllRoles();
         Usuarios Login(string userName, string password);
         bool UpdatePassword(string userName, string oldPassword, string newPassword);
     }

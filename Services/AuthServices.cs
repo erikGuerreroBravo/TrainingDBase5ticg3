@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using TrainingDBase5ticg3.Infraestructura;
 using TrainingDBase5ticg3.Models;
@@ -55,6 +56,14 @@ namespace TrainingDBase5ticg3.Services
             }
             return respuesta;
         }
+
+
+
+        public List<Roles> GetAllRoles()
+        {
+            return this.db.Roles.OrderBy(p => p.Nombre).ToList();
+        }
+
 
     }
 }
