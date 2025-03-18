@@ -67,14 +67,14 @@ namespace TrainingDBase5ticg3.Controllers
         }
 
         [HttpGet]
-        [Authorize()]
+        //[Authorize()]
         public ActionResult ChangePassword() 
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize()]
+        //[Authorize()]
         public ActionResult ChangePassword(string OldPassword, string NewPassword)
         {
             if (User.Identity.IsAuthenticated)
