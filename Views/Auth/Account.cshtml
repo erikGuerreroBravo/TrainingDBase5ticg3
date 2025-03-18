@@ -27,9 +27,19 @@
                     </div>
 
                 </div>
-                <div class="row">
+                <div class="row mt-1">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <label class="roboto-thin-100 title-morado m-2">Roles: </label>
+                        <div class="d-flex flex-row align-content-lg-start">
+                            <label class="roboto-thin-100 title-morado m-2">Roles: </label>
+                            @Html.DropDownList("Roles", null, new { @class = "form-select form-select-sm mb-3 w-100", id = "Profesiones" })
+                        </div>
+                        
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="d-flex flex-row justify-content-center">
+                            <button type="submit" class="btn roboto-Regular-400 btn-bd-morado btn-sm w-25"> Registrar</button>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

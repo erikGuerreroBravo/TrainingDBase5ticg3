@@ -58,7 +58,6 @@ namespace TrainingDBase5ticg3.Services
         }
 
 
-
         public List<Roles> GetAllRoles()
         {
             return this.db.Roles.OrderBy(p => p.Nombre).ToList();
