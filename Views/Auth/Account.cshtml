@@ -1,0 +1,42 @@
+﻿@model TrainingDBase5ticg3.ViewModels.AuthVM
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            <div class="card-title roboto-Bold-700 title-morado">Asignación Cuentas</div>
+            <hr />
+            <div class="card-subtitle roboto-thin-ExtraLight-200">Alta de Cuentas de Usuario</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                        <div class="d-flex flex-row align-content-lg-start">
+                            <label class="roboto-thin-100 title-morado m-2">Nombre de Usuario: </label>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100", placeholder = "Ingresa el Nombre Usuario" } })
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                        <div class="d-flex flex-row align-content-lg-start">
+                            <label class="roboto-thin-100 title-morado m-2">Password: </label>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control form-control-sm roboto-thin-100", placeholder = "Ingresa el Password" , type="password"} })
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                        <div class="d-flex flex-row align-content-end">
+                            <img src="~/Images/usuario_anonimo_formal.jpg" class="img-fluid" alt="AnonimousUser" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <label class="roboto-thin-100 title-morado m-2">Roles: </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
