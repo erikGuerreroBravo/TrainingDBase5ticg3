@@ -10,6 +10,7 @@ namespace TrainingDBase5ticg3.Infraestructura
     public interface IAuthServices
     {
         List<Roles> GetAllRoles();
+        bool InsertUser(Usuarios usuarios);
         Usuarios Login(string userName, string password);
         bool UpdatePassword(string userName, string oldPassword, string newPassword);
     }

@@ -64,5 +64,24 @@ namespace TrainingDBase5ticg3.Services
         }
 
 
+        public bool InsertUser(Usuarios usuarios)
+        {
+            bool respuesta = false;
+            var transaccion = this.db.Database.BeginTransaction();
+            try
+            {
+                this.db.Usuarios.Add(usuarios);
+                this.db.SaveChanges();
+                transaccion.Commit();
+                return respuesta = true;
+            }
+            catch (System.Exception ex)
+            {
+                transaccion.Rollback();
+                return respuesta;               
+            }
+                      
+        }
+
     }
 }

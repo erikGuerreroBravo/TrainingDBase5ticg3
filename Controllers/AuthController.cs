@@ -8,6 +8,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using TrainingDBase5ticg3.Filters;
 using TrainingDBase5ticg3.Infraestructura;
+using TrainingDBase5ticg3.Models;
 using TrainingDBase5ticg3.Security;
 using TrainingDBase5ticg3.Services;
 using TrainingDBase5ticg3.ViewModels;
@@ -96,11 +97,30 @@ namespace TrainingDBase5ticg3.Controllers
 
 
         [HttpGet]
+        [ExceptionFilter]
         public ActionResult Account()
         {
             ViewBag.Roles = new
                SelectList(authServices.GetAllRoles(),
                "Id", "Nombre");
+            return View();
+        }
+
+        [AllowAnonymous]
+        [ExceptionFilter]
+        [HttpPost]
+        public ActionResult Account([Bind(Include = "Email,Password,Roles")] AuthVM authVM, int Roles)
+        {
+            int rolId = Roles;
+            Usuarios usuarios = new Usuarios();
+            usuarios.NombreDeUsuario = authVM.Email.ToLower();
+            usuarios.Email = authVM.Email.ToLower();
+            usuarios.Password = authVM.Password;
+            List<UsuarioRol> usuarioRoles = new List<UsuarioRol>();
+          
+            usuarioRoles.Add(new UsuarioRol{ IdRol = rolId,Usuarios= usuarios });
+            usuarios.UsuarioRol = usuarioRoles;
+            authServices.InsertUser(usuarios);
             return View();
         }
 
