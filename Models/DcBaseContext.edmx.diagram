@@ -20,6 +20,12 @@
         <EntityTypeShape EntityType="TestDbMensajeriaModel.Usuarios" Width="1.5" PointX="9.375" PointY="3.625" />
         <AssociationConnector Association="TestDbMensajeriaModel.FK_UsuarioRol_Roles" />
         <AssociationConnector Association="TestDbMensajeriaModel.FK_UsuarioRol_Usuarios" />
+        <EntityTypeShape EntityType="TestDbMensajeriaModel.Biografia" Width="1.5" PointX="4.875" PointY="9.25" />
+        <EntityTypeShape EntityType="TestDbMensajeriaModel.Certificaciones" Width="1.5" PointX="4.875" PointY="6.5" />
+        <EntityTypeShape EntityType="TestDbMensajeriaModel.Skills" Width="1.5" PointX="4.875" PointY="12" />
+        <AssociationConnector Association="TestDbMensajeriaModel.FK_Biografia_personas" />
+        <AssociationConnector Association="TestDbMensajeriaModel.FK_Certificaciones_personas" />
+        <AssociationConnector Association="TestDbMensajeriaModel.FK_Skills_personas" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

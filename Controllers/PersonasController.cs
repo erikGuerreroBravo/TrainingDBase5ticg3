@@ -94,7 +94,11 @@ namespace TrainingDBase5ticg3.Controllers
 
                 persona=Mapper.Map<personas>(personasVM);
                 services.Crear(persona);
-                return RedirectToAction("Create");
+                #region Add To Sesion
+                Session.Add("UserRegister", personasVM);
+                #endregion
+
+                return RedirectToAction("Perfil");
             }
 
             return View(personasVM);
@@ -171,7 +175,15 @@ namespace TrainingDBase5ticg3.Controllers
         [HttpGet]
         public ActionResult Perfil()
         {
-            return View();
+            if (Session.Count > 0  )
+            {
+                var personasVMSesion = (TrainingDBase5ticg3.ViewModels.PersonasVM)Session["UserRegister"];
+                ViewBag.NombreCompleto = personasVMSesion.Nombre.ToLower() + " " +
+                    personasVMSesion.ApellidoPaterno.ToLower() + " " + personasVMSesion.ApellidoMaterno.ToLower();
+                Session.Remove("UserRegister");
+                return View(personasVMSesion);
+            }
+            return RedirectToAction("Create", "Personas");
         }
 
         protected override void Dispose(bool disposing)

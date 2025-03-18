@@ -1,17 +1,22 @@
-﻿
+﻿@model TrainingDBase5ticg3.ViewModels.PersonasVM
+
 @{
     ViewBag.Title = "Perfil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="container-fluid">
     <div class="row card d-flex flex-row shadow p-3 mb-1 bg-body rounded">
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 justify-content-start">
             <label class="roboto-ExtraBold-800 title-morado title-size-max">
-                Mtro.Erik Guerrero Bravo
+                @ViewBag.NombreCompleto
             </label>
-            <p class="mt-0 mb-0">Telefono: 7731954385</p>
-            <p class="mt-0">Direccion: Av.Madero N#3,
-            Colonia Centro Tepetitlan Hidalgo.</p>
+            <p class="mt-0 mb-0">Telefono: @Model.TelefonoVM.NumeroCelular</p>
+            <p class="mt-0">
+                Dirección: @Model.DireccionVM.Calle
+                Numero Interior:@Model.DireccionVM.NumInterior    NumeroExterior:@Model.DireccionVM.NumExterior
+                
+            </p>
             <hr />
             <button class="btn btn-bd-morado" id="btnSkill"
                     data-bs-toggle="modal" data-bs-target="#modalSkill">
@@ -28,11 +33,10 @@
             </button>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 justify-content-end">
-            <img src="~/Images/usuario_anonimo_formal.jpg" 
+            <img src="~/Images/usuario_anonimo_formal.jpg"
                  alt="Descripción de la imagen" class="img-fluid img-thumbnail">
-            <select 
-                    class="form-select form-select-sm border border-success
-                    roboto-thin-ExtraLight-200 mt-1" 
+            <select class="form-select form-select-sm border border-success
+                    roboto-thin-ExtraLight-200 mt-1"
                     aria-label=".form-select-sm example">
                 <option selected>Asignar Roles</option>
                 <option value="1">Administrador</option>
@@ -46,7 +50,7 @@
                     <i class="fa-solid fa-camera"></i>
                     Agregar Foto
                 </label>
-                <input class="form-control form-control-sm" id="formFileSm" 
+                <input class="form-control form-control-sm" id="formFileSm"
                        type="file">
             </div>
         </div>
@@ -57,13 +61,14 @@
             <div class="card-body" id="skillBody">
                 <div class="card-title">
                     <span class="roboto-Black-900 title-morado">
-                    Skill Profesionales</span>
+                        Skill Profesionales
+                    </span>
                 </div>
                 <hr />
                 <span id="spanId"></span>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7
              card d-flex flex-row shadow p-3 mg-5 bg-body rounded" id="carBio">
             <div class="card-body">
                 <div class="card-title">
@@ -78,7 +83,7 @@
         </div>
     </div>
     <div class="row pt-0 mt-1" id="cardCertificacionesRow">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 card 
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 card
              d-flex flex-row shadow p-3 mg-5 bg-body rounded" id="carCertificaciones">
             <div class="card-body">
                 <div class="card-title">
@@ -118,9 +123,9 @@
 
             </div>
         </div>
-    
-        
-    
+
+
+
     </div>
     <div class="row">
         <!-- Modal -->
@@ -129,9 +134,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header header-modal">
-                        <h1 class="modal-title fs-5 roboto-thin-ExtraLight-200 
+                        <h1 class="modal-title fs-5 roboto-thin-ExtraLight-200
                             header-color-text"
-                            id="exampleModalLabel">Agregar Skill Técnico</h1>
+                            id="exampleModalLabel">
+                            Agregar Skill Técnico
+                        </h1>
                         <button type="button" class="btn-close"
                                 data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -145,23 +152,27 @@
                                     </span>
 
                                 </p>
-                                <input type="text" id="txtSkill" 
-                       class="form-control form-control-sm roboto-thin-ExtraLight-200"
-                       placeholder="Nombre del skill" />
+                                <input type="text" id="txtSkill"
+                                       class="form-control form-control-sm roboto-thin-ExtraLight-200"
+                                       placeholder="Nombre del skill" />
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" 
-                                data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" 
-                                class="btn btn-outline-success" id="btnGuardarSkill">Guardar</button>
+                        <button type="button" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-success" id="btnGuardarSkill">
+                            Guardar
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <script src="~/Scripts/perfil/create-skill.js"></script>

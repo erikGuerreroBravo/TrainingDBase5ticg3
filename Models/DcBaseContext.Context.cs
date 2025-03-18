@@ -34,5 +34,8 @@ namespace TrainingDBase5ticg3.Models
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<UsuarioRol> UsuarioRol { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Biografia> Biografia { get; set; }
+        public virtual DbSet<Certificaciones> Certificaciones { get; set; }
+        public virtual DbSet<Skills> Skills { get; set; }
     }
 }

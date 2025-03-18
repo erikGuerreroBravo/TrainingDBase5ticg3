@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TestDbMensajeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Biografia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPersona" Type="int" />
+          <Property Name="StrValor" Type="varchar" MaxLength="750" />
+          <Property Name="FechaRegistro" Type="date" />
+        </EntityType>
+        <EntityType Name="Certificaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPersona" Type="int" />
+          <Property Name="StrValor" Type="varchar" MaxLength="150" />
+          <Property Name="FechaRegistro" Type="date" />
+        </EntityType>
         <EntityType Name="direcciones">
           <Key>
             <PropertyRef Name="Id" />
@@ -58,6 +76,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPersona" Type="int" />
+          <Property Name="StrValor" Type="varchar" MaxLength="150" />
+          <Property Name="FechaRegistro" Type="date" />
+        </EntityType>
         <EntityType Name="telefonos">
           <Key>
             <PropertyRef Name="Id" />
@@ -84,6 +111,30 @@
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="Password" Type="varchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK_Biografia_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1" />
+          <End Role="Biografia" Type="Self.Biografia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Biografia">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Certificaciones_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1" />
+          <End Role="Certificaciones" Type="Self.Certificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Certificaciones">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_personas_direcciones">
           <End Role="direcciones" Type="Self.direcciones" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -140,6 +191,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Skills_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1" />
+          <End Role="Skills" Type="Self.Skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skills">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UsuarioRol_Roles">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
           <End Role="UsuarioRol" Type="Self.UsuarioRol" Multiplicity="*" />
@@ -165,15 +228,26 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TestDbMensajeriaModelStoreContainer">
+          <EntitySet Name="Biografia" EntityType="Self.Biografia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Certificaciones" EntityType="Self.Certificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="direcciones" EntityType="Self.direcciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profesiones" EntityType="Self.profesiones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profesionesPersonas" EntityType="Self.profesionesPersonas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="telefonos" EntityType="Self.telefonos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsuarioRol" EntityType="Self.UsuarioRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Biografia_personas" Association="Self.FK_Biografia_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="Biografia" EntitySet="Biografia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Certificaciones_personas" Association="Self.FK_Certificaciones_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="Certificaciones" EntitySet="Certificaciones" />
+          </AssociationSet>
           <AssociationSet Name="FK_personas_direcciones" Association="Self.FK_personas_direcciones">
             <End Role="direcciones" EntitySet="direcciones" />
             <End Role="personas" EntitySet="personas" />
@@ -189,6 +263,10 @@
           <AssociationSet Name="FK_profesionesPersonas_profesiones" Association="Self.FK_profesionesPersonas_profesiones">
             <End Role="profesiones" EntitySet="profesiones" />
             <End Role="profesionesPersonas" EntitySet="profesionesPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skills_personas" Association="Self.FK_Skills_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="Skills" EntitySet="Skills" />
           </AssociationSet>
           <AssociationSet Name="FK_UsuarioRol_Roles" Association="Self.FK_UsuarioRol_Roles">
             <End Role="Roles" EntitySet="Roles" />
@@ -225,6 +303,9 @@
           <NavigationProperty Name="telefonos" Relationship="Self.FK_personas_telefonos" FromRole="personas" ToRole="telefonos" />
           <NavigationProperty Name="profesionesPersonas" Relationship="Self.FK_profesionesPersonas_personas" FromRole="personas" ToRole="profesionesPersonas" />
           <NavigationProperty Name="direcciones" Relationship="TestDbMensajeriaModel.FK_personas_direcciones" FromRole="personas" ToRole="direcciones" />
+          <NavigationProperty Name="Biografia" Relationship="TestDbMensajeriaModel.FK_Biografia_personas" FromRole="personas" ToRole="Biografia" />
+          <NavigationProperty Name="Certificaciones" Relationship="TestDbMensajeriaModel.FK_Certificaciones_personas" FromRole="personas" ToRole="Certificaciones" />
+          <NavigationProperty Name="Skills" Relationship="TestDbMensajeriaModel.FK_Skills_personas" FromRole="personas" ToRole="Skills" />
         </EntityType>
         <EntityType Name="profesiones">
           <Key>
@@ -331,6 +412,21 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UsuarioRol" EntitySet="UsuarioRol" />
           </AssociationSet>
+          <EntitySet Name="Biografia" EntityType="TestDbMensajeriaModel.Biografia" />
+          <EntitySet Name="Certificaciones" EntityType="TestDbMensajeriaModel.Certificaciones" />
+          <EntitySet Name="Skills" EntityType="TestDbMensajeriaModel.Skills" />
+          <AssociationSet Name="FK_Biografia_personas" Association="TestDbMensajeriaModel.FK_Biografia_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="Biografia" EntitySet="Biografia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Certificaciones_personas" Association="TestDbMensajeriaModel.FK_Certificaciones_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="Certificaciones" EntitySet="Certificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skills_personas" Association="TestDbMensajeriaModel.FK_Skills_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="Skills" EntitySet="Skills" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="direcciones">
           <Key>
@@ -406,6 +502,72 @@
             </Principal>
             <Dependent Role="UsuarioRol">
               <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Biografia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPersona" Type="Int32" />
+          <Property Name="StrValor" Type="String" MaxLength="750" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="personas" Relationship="TestDbMensajeriaModel.FK_Biografia_personas" FromRole="Biografia" ToRole="personas" />
+        </EntityType>
+        <EntityType Name="Certificaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPersona" Type="Int32" />
+          <Property Name="StrValor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="personas" Relationship="TestDbMensajeriaModel.FK_Certificaciones_personas" FromRole="Certificaciones" ToRole="personas" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPersona" Type="Int32" />
+          <Property Name="StrValor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="personas" Relationship="TestDbMensajeriaModel.FK_Skills_personas" FromRole="Skills" ToRole="personas" />
+        </EntityType>
+        <Association Name="FK_Biografia_personas">
+          <End Type="TestDbMensajeriaModel.personas" Role="personas" Multiplicity="0..1" />
+          <End Type="TestDbMensajeriaModel.Biografia" Role="Biografia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Biografia">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Certificaciones_personas">
+          <End Type="TestDbMensajeriaModel.personas" Role="personas" Multiplicity="0..1" />
+          <End Type="TestDbMensajeriaModel.Certificaciones" Role="Certificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Certificaciones">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skills_personas">
+          <End Type="TestDbMensajeriaModel.personas" Role="personas" Multiplicity="0..1" />
+          <End Type="TestDbMensajeriaModel.Skills" Role="Skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skills">
+              <PropertyRef Name="IdPersona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -499,6 +661,36 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="NombreDeUsuario" ColumnName="NombreDeUsuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Biografia">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.Biografia">
+              <MappingFragment StoreEntitySet="Biografia">
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="StrValor" ColumnName="StrValor" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Certificaciones">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.Certificaciones">
+              <MappingFragment StoreEntitySet="Certificaciones">
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="StrValor" ColumnName="StrValor" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="TestDbMensajeriaModel.Skills">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="StrValor" ColumnName="StrValor" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

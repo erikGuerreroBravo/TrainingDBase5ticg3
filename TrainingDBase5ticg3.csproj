@@ -184,6 +184,12 @@
     <Compile Include="Mapping\PersonasVM.cs" />
     <Compile Include="Mapping\ProfesionesVM.cs" />
     <Compile Include="Mapping\WebProfile.cs" />
+    <Compile Include="Models\Biografia.cs">
+      <DependentUpon>DcBaseContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Certificaciones.cs">
+      <DependentUpon>DcBaseContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DcBaseContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -215,6 +221,9 @@
       <DependentUpon>DcBaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Roles.cs">
+      <DependentUpon>DcBaseContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Skills.cs">
       <DependentUpon>DcBaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\telefonos.cs">

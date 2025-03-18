@@ -18,6 +18,9 @@ namespace TrainingDBase5ticg3.Models
         public personas()
         {
             this.profesionesPersonas = new HashSet<profesionesPersonas>();
+            this.Biografia = new HashSet<Biografia>();
+            this.Certificaciones = new HashSet<Certificaciones>();
+            this.Skills = new HashSet<Skills>();
         }
     
         public int Id { get; set; }
@@ -32,5 +35,11 @@ namespace TrainingDBase5ticg3.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<profesionesPersonas> profesionesPersonas { get; set; }
         public virtual direcciones direcciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Biografia> Biografia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Certificaciones> Certificaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Skills> Skills { get; set; }
     }
 }
