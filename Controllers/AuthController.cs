@@ -109,19 +109,12 @@ namespace TrainingDBase5ticg3.Controllers
         [AllowAnonymous]
         [ExceptionFilter]
         [HttpPost]
-        public ActionResult Account([Bind(Include = "Email,Password,Roles")] AuthVM authVM, int Roles)
+        public ActionResult Account([Bind(Include = "Email,Password,Roles")] 
+        AuthVM authVM, int Roles)
         {
-            int rolId = Roles;
-            Usuarios usuarios = new Usuarios();
-            usuarios.NombreDeUsuario = authVM.Email.ToLower();
-            usuarios.Email = authVM.Email.ToLower();
-            usuarios.Password = authVM.Password;
-            List<UsuarioRol> usuarioRoles = new List<UsuarioRol>();
-          
-            usuarioRoles.Add(new UsuarioRol{ IdRol = rolId,Usuarios= usuarios });
-            usuarios.UsuarioRol = usuarioRoles;
-            authServices.InsertUser(usuarios);
-            return View();
+            
+            authServices.InsertUser(authVM, Roles);
+            return RedirectToAction("Login");
         }
 
 

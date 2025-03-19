@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using TrainingDBase5ticg3.Infraestructura;
 using TrainingDBase5ticg3.Models;
+using TrainingDBase5ticg3.ViewModels;
 
 namespace TrainingDBase5ticg3.Services
 {
@@ -62,8 +63,6 @@ namespace TrainingDBase5ticg3.Services
         {
             return this.db.Roles.OrderBy(p => p.Nombre).ToList();
         }
-
-
         public bool InsertUser(Usuarios usuarios)
         {
             bool respuesta = false;
@@ -79,9 +78,35 @@ namespace TrainingDBase5ticg3.Services
             {
                 transaccion.Rollback();
                 return respuesta;               
-            }
-                      
+            }                      
         }
+
+        public bool InsertUser(AuthVM authVM, int Roles) 
+        {
+            bool respuesta = false;
+            int rolId = Roles;
+            Usuarios usuarios = new Usuarios();
+            usuarios.NombreDeUsuario = authVM.Email.ToLower();
+            usuarios.Email = authVM.Email.ToLower();
+            usuarios.Password = authVM.Password;
+            List<UsuarioRol> usuarioRoles = new List<UsuarioRol>();
+            usuarioRoles.Add(new UsuarioRol { IdRol = rolId, Usuarios = usuarios });
+            usuarios.UsuarioRol = usuarioRoles;
+            var transaccion = this.db.Database.BeginTransaction();
+            try
+            {
+                this.db.Usuarios.Add(usuarios);
+                this.db.SaveChanges();
+                transaccion.Commit();
+                return respuesta = true;
+            }
+            catch (System.Exception ex)
+            {
+                transaccion.Rollback();
+                return respuesta;
+            }
+        }
+
 
     }
 }

@@ -25,7 +25,6 @@ namespace TrainingDBase5ticg3.App_Start
                     CookieSameSite = Microsoft.Owin.SameSiteMode.Strict // P
                 });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-            
         }
     }
 }
