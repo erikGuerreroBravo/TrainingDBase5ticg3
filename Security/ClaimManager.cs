@@ -61,7 +61,6 @@ namespace TrainingDBase5ticg3.Security
 			authenticacionManager.SignOut(DefaultAuthenticationTypes
                 .ApplicationCookie);
 	    }
-
         public bool SignIn(AuthVM authVM, bool rememberMe, string _returnurl)
         {
 			Usuarios usuario = authServices.Login(authVM.Email, authVM.Password);

@@ -9,13 +9,13 @@
     <div class="row card d-flex flex-row shadow p-3 mb-1 bg-body rounded">
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 justify-content-start">
             <label class="roboto-ExtraBold-800 title-morado title-size-max">
-                @ViewBag.NombreCompleto
+                @*@ViewBag.NombreCompleto*@
             </label>
-            <p class="mt-0 mb-0">Telefono: @Model.TelefonoVM.NumeroCelular</p>
+            <p class="mt-0 mb-0">Telefono: @*@Model.TelefonoVM.NumeroCelular*@</p>
             <p class="mt-0">
-                Dirección: @Model.DireccionVM.Calle
-                Numero Interior:@Model.DireccionVM.NumInterior    NumeroExterior:@Model.DireccionVM.NumExterior
-                
+                Dirección: @*@Model.DireccionVM.Calle*@
+                Numero Interior:@*@Model.DireccionVM.NumInterior    NumeroExterior:@Model.DireccionVM.NumExterior*@
+
             </p>
             <hr />
             <button class="btn btn-bd-morado" id="btnSkill"
@@ -130,7 +130,7 @@
     <div class="row">
         <!-- Modal -->
         <div class="modal fade" id="modalSkill"
-             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             tabindex="-1" aria-labelledby="exampleModalLabel" >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header header-modal">
@@ -154,13 +154,13 @@
                                 </p>
                                 <input type="text" id="txtSkill"
                                        class="form-control form-control-sm roboto-thin-ExtraLight-200"
-                                       placeholder="Nombre del skill" />
+                                       placeholder="Nombre del skill" name="txtSkill" />
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary"
-                                data-bs-dismiss="modal">
+                                @*data-bs-dismiss="modal"*@>
                             Cerrar
                         </button>
                         <button type="button"
@@ -175,4 +175,121 @@
 
 </div>
 
-<script src="~/Scripts/perfil/create-skill.js"></script>
+@*<script src="~/Scripts/perfil/create-skill.js"></script>*@
+<script>
+    $(document).ready(function () {
+
+        var biografia = "";
+        var skills = new Array();
+        $('#txtAreaBio').prop('disabled', true);
+        $('#btnGuardarSkill').click(function (event) {
+            event.preventDefault();
+            var txtSkill = $('#txtSkill').val();
+            skills.push(txtSkill);
+            ShowSpan(skills);
+            Limpiar();
+
+        });
+        $('#btnBio').click(function (event) {
+            event.preventDefault();
+            $('#txtAreaBio').prop('disabled', false);
+
+        });
+
+
+        $('#btnGuardar').click(function () {
+            biografia = $('#txtAreaBio').val();
+            var PerfilVM = {};
+            PerfilVM.skills = skills;
+            PerfilVM.biografia = biografia;
+                        
+             // Enviar los datos mediante AJAX
+             $.ajax({
+                 url: '@Url.Action("Perfil", "Personas")', // URL del método Create
+                 type: 'POST',
+                 data: { perfilVM:PerfilVM },
+                 headers: {
+                     'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Incluir el token anti-falsificación
+                 },
+                 success: function (response) {
+                     if (response.success) {
+                         toastr.success('La profesión se ha creado correctamente.', 'Éxito');
+                         // Redirigir a la acción Index después de una inserción exitosa
+                         window.location.href = '@Url.Action("Index", "Profesiones")';
+                     } else {
+                         // Mostrar mensajes de error si la inserción falla
+                         toastr.error('El campo "Nombre de la Profesión" es obligatorio.', 'Error');
+                     }
+                 },
+                 error: function (xhr, status, error) {
+                     toastr.error('El campo "Nombre de la Profesión" es obligatorio.', 'Error');
+                 }
+             });
+        });
+    });
+
+
+
+
+    function Limpiar() {
+        $('#modalSkill').modal('hide');
+        $('#txtSkill').val('');
+    }
+    function removeChip(element) {
+        element.parentElement.remove();
+    };
+    function LoadInit() {
+        $("#cardSkill, #carBio").hide();
+        $("#cardRow").css("display", "none");
+    };
+    // Muestra solo el card seleccionado y oculta el otro
+    function ShowCard(cardId) {
+
+        if (cardId === '#cardSkill') {
+            $("#cardSkill").show();
+
+        }
+        if (cardId === '#carBio') {
+            console.log("sadff");
+            $("#carBio").append();
+        }
+    }
+
+    function LoadSkillOnly() {
+        $("#cardRow").css("display", "flex");
+        $("#carBio").css("display", "none");
+    }
+
+    function ShowData(skills) {
+        $("#skillBody").empty("");
+        $("#spanId").empty("");
+        $("#skillBody").append('<div class="card-title"><span class="roboto-Black-900 title-morado">Skill Profesionales</span ></div > <hr />');
+        $.each(skills, function (index, skill) {
+            $("#skillBody").append(`
+            <span class="badge bg-success text-white me-2 mt-1 roboto-Light-300" id="spanId">
+                ${skill}
+                <button type="button" class="btn-close btn-close-white ms-2" aria-label="Close" onclick="removeChip(this)"></button>
+            </span>
+        `);
+        });
+    }
+
+    function ShowSpan(skills) {
+        var skillContent = ''; // Variable para construir todo el contenido
+        // Agregar encabezado inicial
+        skillContent += '<div class="card-title"><span class="roboto-Black-900 title-morado">Skill Profesionales</span></div><hr/>';
+        // Crear los elementos de habilidad
+        $.each(skills, function (index, skill) {
+            skillContent += `
+            <span class="badge bg-success text-white me-2 mt-1 roboto-Light-300">
+                ${skill}
+                <button type="button" class="btn-close btn-close-white ms-2" aria-label="Close" onclick="removeChip(this)"></button>
+            </span>
+        `;
+        });
+        // Limpiar el contenido actual de skillBody
+        $("#skillBody").empty();
+        // Insertar todo el contenido de una sola vez
+        $("#skillBody").append(skillContent);
+    }
+</script>

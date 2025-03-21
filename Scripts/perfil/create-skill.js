@@ -8,6 +8,7 @@
         skills.push(txtSkill);
         ShowSpan(skills);
         Limpiar();
+
     });
     $('#btnBio').click(function (event) {
         event.preventDefault();
@@ -78,3 +79,5 @@ function ShowSpan(skills) {
         // Insertar todo el contenido de una sola vez
         $("#skillBody").append(skillContent);    
 }
+
+

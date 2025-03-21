@@ -180,6 +180,7 @@
     <Compile Include="Infraestructura\IDireccionesServices.cs" />
     <Compile Include="Infraestructura\IPersonasServices.cs" />
     <Compile Include="Infraestructura\IProfesionesServices.cs" />
+    <Compile Include="Infraestructura\ISkillsServices.cs" />
     <Compile Include="Mapping\DireccionVM.cs" />
     <Compile Include="Mapping\PersonasVM.cs" />
     <Compile Include="Mapping\ProfesionesVM.cs" />
@@ -241,8 +242,10 @@
     <Compile Include="Services\DireccionesServices.cs" />
     <Compile Include="Services\PersonasServices.cs" />
     <Compile Include="Services\ProfesionesServices.cs" />
+    <Compile Include="Services\SkillsServices.cs" />
     <Compile Include="ViewModels\AuthVM.cs" />
     <Compile Include="ViewModels\DireccionVM.cs" />
+    <Compile Include="ViewModels\PerfilVM.cs" />
     <Compile Include="ViewModels\PersonasVM.cs" />
     <Compile Include="ViewModels\ProfesionesPersonaVM.cs" />
     <Compile Include="ViewModels\ProfesionesVM.cs" />

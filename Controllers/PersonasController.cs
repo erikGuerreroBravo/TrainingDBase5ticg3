@@ -21,11 +21,12 @@ namespace TrainingDBase5ticg3.Controllers
 
         private readonly IPersonasServices services = null;
         private readonly IProfesionesServices profesionesServices = null;
-
+        private readonly ISkillsServices skillsServices = null;
         public PersonasController()
         {
             services = new PersonasServices();
-            profesionesServices= new ProfesionesServices(); 
+            profesionesServices= new ProfesionesServices();
+            skillsServices = new SkillsServices();
         }
 
         // GET: Personas
@@ -175,16 +176,34 @@ namespace TrainingDBase5ticg3.Controllers
         [HttpGet]
         public ActionResult Perfil()
         {
-            if (Session.Count > 0  )
-            {
-                var personasVMSesion = (TrainingDBase5ticg3.ViewModels.PersonasVM)Session["UserRegister"];
-                ViewBag.NombreCompleto = personasVMSesion.Nombre.ToLower() + " " +
-                    personasVMSesion.ApellidoPaterno.ToLower() + " " + personasVMSesion.ApellidoMaterno.ToLower();
-                Session.Remove("UserRegister");
-                return View(personasVMSesion);
-            }
-            return RedirectToAction("Create", "Personas");
+            //if (Session.Count > 0  )
+            //{
+            //    var personasVMSesion = (TrainingDBase5ticg3.ViewModels.PersonasVM)Session["UserRegister"];
+            //    ViewBag.NombreCompleto = personasVMSesion.Nombre.ToLower() + " " +
+            //        personasVMSesion.ApellidoPaterno.ToLower() + " " + personasVMSesion.ApellidoMaterno.ToLower();
+            //    Session.Remove("UserRegister");
+            //    return View(personasVMSesion);
+            //}
+            //return RedirectToAction("Create", "Personas");
+            return View();
         }
+
+        [HttpPost]
+        [ExceptionFilter]
+        public JsonResult Perfil(PerfilVM perfilVM)
+        {
+            personas user=  services.GetByName(User.Identity.Name).First();
+
+            if (skillsServices.InsertAllSkill(perfilVM.Skills,user.Id))
+            {
+                return Json(new { success = true });
+            }
+            else {
+                return Json(new { success = false, message = "Error al insertar los skills" });
+            }
+          
+        }
+
 
         protected override void Dispose(bool disposing)
         {

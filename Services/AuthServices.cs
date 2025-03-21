@@ -14,7 +14,6 @@ namespace TrainingDBase5ticg3.Services
         {
             db = new TestDbMensajeriaEntities();
         }
-
         public Usuarios Login(string userName, string password) 
         {
             if (string.IsNullOrWhiteSpace(userName) ||
@@ -22,7 +21,6 @@ namespace TrainingDBase5ticg3.Services
             {
                 return null;
             }
-
             Usuarios usuario = db.Usuarios
                 .Include("UsuarioRol")
                 .FirstOrDefault(u => u.Email == userName);
@@ -90,7 +88,8 @@ namespace TrainingDBase5ticg3.Services
             usuarios.Email = authVM.Email.ToLower();
             usuarios.Password = authVM.Password;
             List<UsuarioRol> usuarioRoles = new List<UsuarioRol>();
-            usuarioRoles.Add(new UsuarioRol { IdRol = rolId, Usuarios = usuarios });
+            usuarioRoles.Add(new UsuarioRol
+            { IdRol = rolId, Usuarios = usuarios });
             usuarios.UsuarioRol = usuarioRoles;
             var transaccion = this.db.Database.BeginTransaction();
             try
