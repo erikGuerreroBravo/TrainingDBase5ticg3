@@ -9,12 +9,12 @@
     <div class="row card d-flex flex-row shadow p-3 mb-1 bg-body rounded">
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 justify-content-start">
             <label class="roboto-ExtraBold-800 title-morado title-size-max">
-                @*@ViewBag.NombreCompleto*@
+                @ViewBag.NombreCompleto
             </label>
-            <p class="mt-0 mb-0">Telefono: @*@Model.TelefonoVM.NumeroCelular*@</p>
+            <p class="mt-0 mb-0">Telefono: @Model.TelefonoVM.NumeroCelular</p>
             <p class="mt-0">
-                Dirección: @*@Model.DireccionVM.Calle*@
-                Numero Interior:@*@Model.DireccionVM.NumInterior    NumeroExterior:@Model.DireccionVM.NumExterior*@
+                Dirección: @Model.DireccionVM.Calle
+                Numero Interior:@Model.DireccionVM.NumInterior    NumeroExterior:@Model.DireccionVM.NumExterior
 
             </p>
             <hr />

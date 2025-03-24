@@ -176,24 +176,25 @@ namespace TrainingDBase5ticg3.Controllers
         [HttpGet]
         public ActionResult Perfil()
         {
-            //if (Session.Count > 0  )
-            //{
-            //    var personasVMSesion = (TrainingDBase5ticg3.ViewModels.PersonasVM)Session["UserRegister"];
-            //    ViewBag.NombreCompleto = personasVMSesion.Nombre.ToLower() + " " +
-            //        personasVMSesion.ApellidoPaterno.ToLower() + " " + personasVMSesion.ApellidoMaterno.ToLower();
-            //    Session.Remove("UserRegister");
-            //    return View(personasVMSesion);
-            //}
-            //return RedirectToAction("Create", "Personas");
-            return View();
+            if (Session.Count > 0)
+            {
+                var personasVMSesion = (TrainingDBase5ticg3.ViewModels.PersonasVM)Session["UserRegister"];
+                ViewBag.NombreCompleto = personasVMSesion.Nombre.ToLower() + " " +
+                    personasVMSesion.ApellidoPaterno.ToLower() + " " + personasVMSesion.ApellidoMaterno.ToLower();
+                
+                return View(personasVMSesion);
+            }
+            return RedirectToAction("Create", "Personas");
+            //return View();
         }
 
         [HttpPost]
         [ExceptionFilter]
         public JsonResult Perfil(PerfilVM perfilVM)
         {
-            personas user=  services.GetByName(User.Identity.Name).First();
-
+            var personasVMSesion = (TrainingDBase5ticg3.ViewModels.PersonasVM)Session["UserRegister"];
+            personas user=  services.GetByName(personasVMSesion.Nombre).First();
+            Session.Remove("UserRegister");
             if (skillsServices.InsertAllSkill(perfilVM.Skills,user.Id))
             {
                 return Json(new { success = true });
