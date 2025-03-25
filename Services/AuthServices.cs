@@ -7,7 +7,7 @@ using TrainingDBase5ticg3.ViewModels;
 
 namespace TrainingDBase5ticg3.Services
 {
-	public class AuthServices: IAuthServices
+	public class AuthServices : IAuthServices
     {
         private readonly TestDbMensajeriaEntities db = null;
         public AuthServices()
@@ -16,14 +16,13 @@ namespace TrainingDBase5ticg3.Services
         }
         public Usuarios Login(string userName, string password) 
         {
-            if (string.IsNullOrWhiteSpace(userName) ||
-                string.IsNullOrWhiteSpace(password))
+            if(string.IsNullOrWhiteSpace(userName)||string.IsNullOrWhiteSpace(password))
             {
                 return null;
             }
             Usuarios usuario = db.Usuarios
                 .Include("UsuarioRol")
-                .FirstOrDefault(u => u.Email == userName);
+                .FirstOrDefault(u => u.Email == userName && u.Password== password);
             if (usuario == null)
             {
                 return null;
@@ -32,8 +31,6 @@ namespace TrainingDBase5ticg3.Services
                 .Where(u => u.IdUsuario == usuario.Id).ToList();
             return usuario;
         }
-
-
         public bool UpdatePassword(string userName,string oldPassword,string newPassword)
         {
             bool respuesta = false;
@@ -55,8 +52,6 @@ namespace TrainingDBase5ticg3.Services
             }
             return respuesta;
         }
-
-
         public List<Roles> GetAllRoles()
         {
             return this.db.Roles.OrderBy(p => p.Nombre).ToList();
@@ -105,7 +100,5 @@ namespace TrainingDBase5ticg3.Services
                 return respuesta;
             }
         }
-
-
     }
 }

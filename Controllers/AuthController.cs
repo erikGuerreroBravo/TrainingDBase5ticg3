@@ -80,21 +80,18 @@ namespace TrainingDBase5ticg3.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (!OldPassword.Equals(NewPassword)) 
+                if (!OldPassword.Equals(NewPassword))
                 {
                     if (authServices.UpdatePassword(User.Identity.Name,
                         OldPassword, NewPassword))
                     {
                         return RedirectToAction("Login");
                     }
-                    //tenemos que agregar un error
-                     return View();
+                   return View();
                 }
-
             }
             return View();
         }
-
 
         [HttpGet]
         [ExceptionFilter]
@@ -105,7 +102,6 @@ namespace TrainingDBase5ticg3.Controllers
                "Id", "Nombre");
             return View();
         }
-
         [AllowAnonymous]
         [ExceptionFilter]
         [HttpPost]
@@ -116,7 +112,5 @@ namespace TrainingDBase5ticg3.Controllers
             authServices.InsertUser(authVM, Roles);
             return RedirectToAction("Login");
         }
-
-
     }
 }
