@@ -22,11 +22,13 @@ namespace TrainingDBase5ticg3.Controllers
         private readonly IPersonasServices services = null;
         private readonly IProfesionesServices profesionesServices = null;
         private readonly ISkillsServices skillsServices = null;
+        private readonly IBigrafiaServices bigrafiaServices = null;
         public PersonasController()
         {
             services = new PersonasServices();
             profesionesServices= new ProfesionesServices();
             skillsServices = new SkillsServices();
+            bigrafiaServices = new BigrafiaServices();
         }
 
         // GET: Personas
@@ -197,6 +199,7 @@ namespace TrainingDBase5ticg3.Controllers
             Session.Remove("UserRegister");
             if (skillsServices.InsertAllSkill(perfilVM.Skills,user.Id))
             {
+                bigrafiaServices.InsertBiografia(perfilVM.Biografia.ToLower());
                 return Json(new { success = true });
             }
             else {

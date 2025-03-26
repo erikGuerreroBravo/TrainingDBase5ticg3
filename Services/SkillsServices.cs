@@ -10,6 +10,7 @@ namespace TrainingDBase5ticg3.Services
 	public class SkillsServices: ISkillsServices
     {
         private readonly TestDbMensajeriaEntities db = null;
+        
         public SkillsServices()
         {
             this.db = new TestDbMensajeriaEntities();
