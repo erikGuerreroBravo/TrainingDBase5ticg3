@@ -199,7 +199,7 @@ namespace TrainingDBase5ticg3.Controllers
             Session.Remove("UserRegister");
             if (skillsServices.InsertAllSkill(perfilVM.Skills,user.Id))
             {
-                bigrafiaServices.InsertBiografia(perfilVM.Biografia.ToLower());
+                bigrafiaServices.InsertBiografia(perfilVM.Biografia.ToLower(), user.Id);
                 return Json(new { success = true });
             }
             else {
