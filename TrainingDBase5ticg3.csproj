@@ -176,6 +176,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infraestructura\IAuthServices.cs" />
+    <Compile Include="Infraestructura\IBigrafiaServices.cs" />
     <Compile Include="Infraestructura\IClaimManager.cs" />
     <Compile Include="Infraestructura\IDireccionesServices.cs" />
     <Compile Include="Infraestructura\IPersonasServices.cs" />
