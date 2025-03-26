@@ -16,13 +16,13 @@ namespace TrainingDBase5ticg3.Services
             this.db = new TestDbMensajeriaEntities();
         }
 
-        public bool InsertBiografia(string bio)
+        public bool InsertBiografia(string bio, int IdPersona)
         {
             bool result = false;
             var transaccion = this.db.Database.BeginTransaction();
             try
             {
-                Biografia biografia = new Biografia {FechaRegistro= DateTime.UtcNow, StrValor=bio };
+                Biografia biografia = new Biografia {FechaRegistro= DateTime.UtcNow, StrValor=bio,IdPersona= IdPersona };
                 this.db.Biografia.Add(biografia);
                 this.db.SaveChanges();
                 transaccion.Commit();

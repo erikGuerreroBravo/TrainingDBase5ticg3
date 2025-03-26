@@ -8,6 +8,6 @@ namespace TrainingDBase5ticg3.Infraestructura
 {
     public interface IBigrafiaServices
     {
-        bool InsertBiografia(string bio);
+        bool InsertBiografia(string bio, int IdPersona);
     }
 }
