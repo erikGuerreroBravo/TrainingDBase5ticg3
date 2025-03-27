@@ -97,6 +97,7 @@ namespace TrainingDBase5ticg3.Controllers
 
                 persona=Mapper.Map<personas>(personasVM);
                 services.Crear(persona);
+              
                 #region Add To Sesion
                 Session.Add("UserRegister", personasVM);
                 #endregion
@@ -187,7 +188,6 @@ namespace TrainingDBase5ticg3.Controllers
                 return View(personasVMSesion);
             }
             return RedirectToAction("Create", "Personas");
-            //return View();
         }
 
         [HttpPost]
@@ -207,6 +207,8 @@ namespace TrainingDBase5ticg3.Controllers
             }
           
         }
+
+
 
 
         protected override void Dispose(bool disposing)

@@ -19,7 +19,9 @@
                         <div class="row mb-2">
                             <div class="col-12">
                                 <label class="roboto-thin-ExtraLight-200 title-morado">Usuario:</label>
-                                @Html.TextBoxFor(model => model.NombreDeUsuario, new { @class = "form-control form-control-sm", placeholder = "Ingrese su usuario", required = "required" })
+                                @Html.TextBoxFor(model => model.NombreDeUsuario, 
+                               new { @class = "form-control form-control-sm", 
+                                   placeholder = "Ingrese su usuario", required = "required" })
 
                             </div>
                         </div>
@@ -28,7 +30,9 @@
                         <div class="row mb-2">
                             <div class="col-12">
                                 <label class="roboto-thin-ExtraLight-200 title-morado">Password:</label>
-                                @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-sm", placeholder = "Ingrese su contraseña", required = "required" })
+                                @Html.PasswordFor(model => model.Password, 
+                               new { @class = "form-control form-control-sm", 
+                                   placeholder = "Ingrese su contraseña", required = "required" })
 
                             </div>
                         </div>
