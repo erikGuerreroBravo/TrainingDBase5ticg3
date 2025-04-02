@@ -170,9 +170,6 @@ namespace TrainingDBase5ticg3.Controllers
             personasVM = AutoMapper.Mapper
                 .Map<PersonasVM>(persona);
             
-            //db.PersonasVMs.Remove(personasVM);
-            //db.SaveChanges();
-            
             return RedirectToAction("Index");
         }
 
@@ -208,7 +205,7 @@ namespace TrainingDBase5ticg3.Controllers
           
         }
 
-
+      
 
 
         protected override void Dispose(bool disposing)
